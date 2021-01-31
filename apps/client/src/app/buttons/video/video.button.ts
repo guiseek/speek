@@ -1,15 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { BaseButton } from '../base.button'
+import { Component } from '@angular/core'
 
 @Component({
-  selector: 'speek-video',
-  templateUrl: './video.button.html',
-  styleUrls: ['./video.button.scss']
+  selector: 'speek-video-button',
+  template: `
+    <button mat-fab [color]="color" (click)="onClick()">
+      <mat-icon>{{ track?.enabled ? 'videocam' : 'videocam_off' }}</mat-icon>
+    </button>
+  `
 })
-export class VideoButton implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
-}
+export class VideoButton extends BaseButton {}

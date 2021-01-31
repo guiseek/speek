@@ -1,15 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-
+import { BaseButton } from '../base.button'
+import { Component } from '@angular/core'
 @Component({
-  selector: 'speek-audio',
-  templateUrl: './audio.button.html',
-  styleUrls: ['./audio.button.scss']
+  selector: 'speek-audio-button',
+  template: `
+    <button mat-fab [color]="color" (click)="onClick()">
+      <mat-icon>{{ track?.enabled ? 'volume_up' : 'volume_off' }}</mat-icon>
+    </button>
+  `
 })
-export class AudioButton implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
-}
+export class AudioButton extends BaseButton {}
