@@ -17,6 +17,7 @@
   },
   "projects": {
     "client": { "tags": [] },
-    "client-e2e": { "tags": [], "implicitDependencies": ["client"] }
+    "client-e2e": { "tags": [], "implicitDependencies": ["client"] },
+    "server": { "tags": [] }
   }
 }
