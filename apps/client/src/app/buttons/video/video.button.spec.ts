@@ -1,3 +1,5 @@
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { VideoButton } from './video.button';
@@ -8,7 +10,8 @@ describe('VideoButton', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ VideoButton ]
+      declarations: [ VideoButton ],
+      imports: [MatButtonModule, MatIconModule]
     })
     .compileComponents();
   });
