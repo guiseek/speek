@@ -16,27 +16,27 @@ export class SignalingGateway implements OnGatewayDisconnect {
 
   @SubscribeMessage(SpeekAction.CreateOrJoin)
   create(
-    @ConnectedSocket() contact: Socket,
+    @ConnectedSocket() socket: Socket,
     @MessageBody() payload: SpeekPayload
   ) {
     const room = this._room(payload)
     if (room.length === 0) {
-      contact.join(payload.code)
-      contact.emit(SpeekAction.Created)
+      socket.join(payload.code)
+      socket.emit(SpeekAction.Created)
     } else if (room.length > 0 && room.length < 5) {
-      contact.join(payload.code)
-      contact.emit(SpeekAction.Joined)
+      socket.join(payload.code)
+      socket.emit(SpeekAction.Joined)
     } else {
-      contact.emit(SpeekAction.Full)
+      socket.emit(SpeekAction.Full)
     }
   }
 
   @SubscribeMessage(SpeekAction.Offer)
   restart(
-    @ConnectedSocket() contact: Socket,
+    @ConnectedSocket() socket: Socket,
     @MessageBody() payload: SpeekPayload
   ) {
-    const room = contact.to(payload.code)
+    const room = socket.to(payload.code)
     room.broadcast.emit(SpeekAction.Offer, payload)
   }
 
@@ -45,9 +45,9 @@ export class SignalingGateway implements OnGatewayDisconnect {
     return adapter.rooms[code] ?? { length: 0 }
   }
 
-  handleDisconnect(contact: Socket) {
-    contact.broadcast.emit(SpeekAction.Exited, contact.id)
-    contact.leaveAll()
+  handleDisconnect(socket: Socket) {
+    socket.broadcast.emit(SpeekAction.Exited, socket.id)
+    socket.leaveAll()
   }
   @SubscribeMessage('message')
   handleMessage(client: any, payload: any): string {
