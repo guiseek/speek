@@ -8,7 +8,8 @@ import {
   ViewChild,
 } from '@angular/core'
 import { RemoteTodoStore, Todo } from './store'
-import { BehaviorSubject } from 'rxjs'
+import { BehaviorSubject, Observable } from 'rxjs'
+import { NetworkService } from './network.service'
 
 @Component({
   selector: 'speek-root',
@@ -34,11 +35,18 @@ export class AppComponent implements OnInit, AfterViewInit {
   todoStore: RemoteTodoStore
   newTodoText = ''
 
-  constructor(todoStore: RemoteTodoStore) {
+  upload$ = this.network.upload$
+  download$ = this.network.download$
+  connection$ = this.network.connection$
+
+  constructor(todoStore: RemoteTodoStore, readonly network: NetworkService) {
     this.todoStore = todoStore
   }
 
   ngOnInit() {
+    this.network.loadUp()
+    this.network.loadDown()
+
     try {
       this.peer = new RTCPeerConnection()
     } catch (err) {

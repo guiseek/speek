@@ -25,6 +25,7 @@
     "update": "nx migrate latest",
     "workspace-generator": "nx workspace-generator",
     "dep-graph": "nx dep-graph",
+    "speed-test": "ts-node libs/util/network/src/bin/speed-check.ts",
     "help": "nx help"
   },
   "private": true,
@@ -70,8 +71,9 @@
     "@nrwl/node": "11.2.6",
     "@nrwl/tao": "11.2.6",
     "@nrwl/workspace": "11.2.6",
+    "@trellisorg/make-buildable": "0.0.10",
     "@types/jest": "26.0.8",
-    "@types/node": "12.12.38",
+    "@types/node": "^12.19.15",
     "@types/socket.io": "^2.1.13",
     "@typescript-eslint/eslint-plugin": "4.3.0",
     "@typescript-eslint/parser": "4.3.0",

@@ -19,6 +19,7 @@
     "client": { "tags": [] },
     "client-e2e": { "tags": [], "implicitDependencies": ["client"] },
     "server": { "tags": [] },
-    "core-entity": { "tags": [] }
+    "core-entity": { "tags": [] },
+    "util-network": { "tags": [] }
   }
 }

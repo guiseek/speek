@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@speek/core/entity": ["libs/core/entity/src/index.ts"]
+      "@speek/core/entity": ["libs/core/entity/src/index.ts"],
+      "@speek/util-network": ["libs/util/network/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

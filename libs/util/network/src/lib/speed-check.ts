@@ -1,11 +1,12 @@
-import * as http from 'http'
+import { SpeedResponse } from '@speek/core/entity'
 import * as https from 'https'
+import * as http from 'http'
 import { URL } from 'url'
 
 const chars =
   "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789~!@#$%^&*()_+`-=[]{}|;':,./<>?"
 
-class NetworkSpeedCheck {
+export class NetworkSpeedCheck {
   /**
    * Function to check download speed
    * @param {String} baseUrl {Required} The url to which the request should be made
@@ -13,13 +14,17 @@ class NetworkSpeedCheck {
    * @returns {Object}
    */
 
-  _protocol(url: string) {
-    var u = new URL(url)
+  _protocol(url: string): typeof http | typeof https {
+    const u = new URL(url)
     return u.protocol === 'http:' ? http : https
   }
-  async checkDownloadSpeed(baseUrl: string, fileSizeInBytes: number) {
+
+  async checkDownloadSpeed(
+    baseUrl: string,
+    fileSizeInBytes: number
+  ): Promise<SpeedResponse> {
     this.validateDownloadSpeedParams(baseUrl, fileSizeInBytes)
-    let startTime
+    let startTime: number
     let protocol = this._protocol(baseUrl)
     return new Promise((resolve, _) => {
       return protocol.get(baseUrl, (response) => {
@@ -30,7 +35,6 @@ class NetworkSpeedCheck {
         response.once('end', () => {
           const endTime = new Date().getTime()
           const duration = (endTime - startTime) / 1000
-          // Convert bytes into bits by multiplying with 8
           const bitsLoaded = fileSizeInBytes * 8
           const bps = +(bitsLoaded / duration).toFixed(2)
           const kbps = +(bps / 1000).toFixed(2)
@@ -40,11 +44,14 @@ class NetworkSpeedCheck {
       })
     }).catch((error) => {
       throw new Error(error)
-    })
+    }) as Promise<SpeedResponse>
   }
 
-  checkUploadSpeed(options, fileSizeInBytes = 2000000) {
-    let startTime
+  checkUploadSpeed(
+    options: string | http.RequestOptions | URL,
+    fileSizeInBytes = 2000000
+  ): Promise<SpeedResponse> {
+    let startTime: number
     const defaultData = this.generateTestData(fileSizeInBytes / 1000)
     const data = JSON.stringify({ defaultData })
     return new Promise((resolve, reject) => {
@@ -70,7 +77,7 @@ class NetworkSpeedCheck {
     })
   }
 
-  validateDownloadSpeedParams(baseUrl, fileSizeInBytes) {
+  validateDownloadSpeedParams(baseUrl: string, fileSizeInBytes: number) {
     if (typeof baseUrl !== 'string') {
       throw new Error('baseUrl must be a string')
     }
@@ -80,7 +87,7 @@ class NetworkSpeedCheck {
     return
   }
 
-  generateTestData(sizeInKmb) {
+  generateTestData(sizeInKmb: number) {
     const iterations = sizeInKmb * 1000 //get byte count
     let result = ''
     for (var index = 0; index < iterations; index++) {
