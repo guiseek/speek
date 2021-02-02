@@ -6,13 +6,16 @@ import {
   WebSocketGateway,
   WebSocketServer,
   OnGatewayDisconnect,
+  OnGatewayConnection,
 } from '@nestjs/websockets'
 import { Server, Socket } from 'socket.io'
 
 @WebSocketGateway()
-export class SignalingGateway implements OnGatewayDisconnect {
-  @WebSocketServer()
-  server: Server
+export class SignalingGateway
+  implements OnGatewayConnection, OnGatewayDisconnect {
+    @WebSocketServer()
+    server: Server
+
 
   @SubscribeMessage(SpeekAction.CreateOrJoin)
   create(
@@ -44,7 +47,9 @@ export class SignalingGateway implements OnGatewayDisconnect {
     const adapter = this.server.sockets.adapter
     return adapter.rooms[code] ?? { length: 0 }
   }
-
+  handleConnection(socket: Socket, ...args: any[]) {
+    socket.broadcast.emit(SpeekAction.Connection, socket.id)
+  }
   handleDisconnect(socket: Socket) {
     socket.broadcast.emit(SpeekAction.Exited, socket.id)
     socket.leaveAll()

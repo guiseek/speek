@@ -1,23 +1,82 @@
 <!-- <h1>Welcome to {{ title }}!</h1> -->
 
-
-<em>Connection</em>
-<pre>{{ connection$ | async | json }}</pre>
-
-<em>Download</em>
-<pre>{{ download$ | async | json }}</pre>
-
-<em>Upload</em>
-<pre>{{ upload$ | async | json }}</pre>
 <main>
   <video #localVideo autoplay playsinline></video>
 </main>
-<nav>
-  <speek-audio-button [track]="localAudioTrack"></speek-audio-button>
-  <speek-video-button [track]="localVideoTrack"></speek-video-button>
 
-  <speek-call-button
-    [active]="call$ | async"
-    (clicked)="play()"
-  ></speek-call-button>
-</nav>
+<mat-accordion class="headers-align">
+  <mat-expansion-panel hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Contatos
+        <mat-icon class="primary"> people </mat-icon>
+      </mat-panel-title>
+      <mat-panel-description> Encontrar alguém </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <mat-list>
+      <mat-list-item *ngFor="let contact of people">
+        <h3 mat-line>
+          {{ contact.first_name }}
+        </h3>
+        <p mat-line>{{ contact.email }}</p>
+        <small class="mat-hint">{{ contact.modified | date: 'short' }}</small>
+      </mat-list-item>
+    </mat-list>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Chamadas
+        <mat-icon class="primary"> call </mat-icon>
+      </mat-panel-title>
+      <mat-panel-description> Ligar por stream </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <div class="box">
+      <speek-audio-button [track]="localAudioTrack"></speek-audio-button>
+      <speek-video-button [track]="localVideoTrack"></speek-video-button>
+      <speek-call-button
+        [active]="call$ | async"
+        (clicked)="play()"
+      ></speek-call-button>
+    </div>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{ (connection$ | async) ? 'Conectado' : 'Desconectado' }}
+
+        <mat-icon class="primary">
+          {{ (connection$ | async) ? 'cloud_done' : 'cloud_off' }}
+        </mat-icon>
+      </mat-panel-title>
+
+      <mat-panel-description>
+        {{ (upload$ | async) ? 'Conexão estável' : 'Analisando...' }}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <mat-list class="flex">
+      <mat-list-item>
+        <mat-icon mat-list-icon>cloud_download</mat-icon>
+        <h3 mat-line>
+          {{ (download$ | async)?.mbps }}
+          <small class="mat-hint">mbps</small>
+        </h3>
+        <p mat-line class="mat-hint">Download</p>
+      </mat-list-item>
+
+      <mat-list-item>
+        <mat-icon mat-list-icon>cloud_upload</mat-icon>
+        <h3 mat-line>
+          {{ (upload$ | async)?.mbps }}
+          <small class="mat-hint">mbps</small>
+        </h3>
+        <p mat-line class="mat-hint">Upload</p>
+      </mat-list-item>
+    </mat-list>
+  </mat-expansion-panel>
+</mat-accordion>

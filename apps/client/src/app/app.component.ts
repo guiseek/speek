@@ -1,5 +1,3 @@
-import { FormControl, FormGroup, Validators } from '@angular/forms'
-import { HttpClient } from '@angular/common/http'
 import {
   AfterViewInit,
   Component,
@@ -7,17 +5,18 @@ import {
   OnInit,
   ViewChild,
 } from '@angular/core'
-import { RemoteTodoStore, Todo } from './store'
-import { BehaviorSubject, Observable } from 'rxjs'
+import { RemotePeerStore, Peer } from './peer'
+import { BehaviorSubject } from 'rxjs'
 import { NetworkService } from './network.service'
-
 @Component({
   selector: 'speek-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit, AfterViewInit {
-  title = 'client'
+  config = 'client'
+
+  people = []
 
   peer: RTCPeerConnection
 
@@ -32,15 +31,20 @@ export class AppComponent implements OnInit, AfterViewInit {
   private _call = new BehaviorSubject<boolean>(false)
   call$ = this._call.asObservable()
 
-  todoStore: RemoteTodoStore
-  newTodoText = ''
+  peerStore: RemotePeerStore
+  newPeerConfig = {
+    iceServers: [{ urls: 'stun:stun.stunprotocol.org:3478' }],
+  }
 
   upload$ = this.network.upload$
   download$ = this.network.download$
   connection$ = this.network.connection$
 
-  constructor(todoStore: RemoteTodoStore, readonly network: NetworkService) {
-    this.todoStore = todoStore
+  constructor(peerStore: RemotePeerStore, readonly network: NetworkService) {
+    this.peerStore = peerStore
+    setInterval(() => {
+      console.log(this.peerStore.peers)
+    }, 2000)
   }
 
   ngOnInit() {
@@ -62,58 +66,71 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   play() {
-    navigator.mediaDevices
-      .getUserMedia({ audio: true, video: true })
-      .then((stream) => {
-        this.localStream = stream
-        this.localVideo.muted = true
-        this.localVideo.srcObject = stream
-        this.localAudioTrack = stream.getAudioTracks().shift()
-        this.localVideoTrack = stream.getVideoTracks().shift()
-        this._call.next(true)
-      })
+    this.localStream?.active
+      ? this.hangup()
+      : navigator.mediaDevices
+          .getUserMedia({ audio: true, video: true })
+          .then((stream) => {
+            this.localStream = stream
+            this.localVideo.muted = true
+            this.localVideo.srcObject = stream
+            this.localAudioTrack = stream.getAudioTracks().shift()
+            this.localVideoTrack = stream.getVideoTracks().shift()
+            this.peerStore.add(this.newPeerConfig)
+            this._call.next(true)
+            this.peerStore.setAllTo(true)
+          })
   }
 
-  stopEditing(todo: Todo, editedTitle: string) {
-    todo.title = editedTitle
-    todo.editing = false
+  stopEditing(peer: Peer, editedConfig: RTCConfiguration) {
+    peer.config = editedConfig
+    peer.editing = false
   }
 
-  cancelEditingTodo(todo: Todo) {
-    todo.editing = false
+  cancelEditingPeer(peer: Peer) {
+    peer.editing = false
   }
 
-  updateEditingTodo(todo: Todo, editedTitle: string) {
-    editedTitle = editedTitle.trim()
-    todo.editing = false
+  updateEditingPeer(peer: Peer, editedConfig: RTCConfiguration) {
+    editedConfig = editedConfig
+    peer.editing = false
 
-    if (editedTitle.length === 0) {
-      return this.todoStore.remove(todo)
+    if (editedConfig === 0) {
+      return this.peerStore.remove(peer)
     }
 
-    todo.title = editedTitle
+    peer.config = editedConfig
   }
 
-  editTodo(todo: Todo) {
-    todo.editing = true
+  editPeer(peer: Peer) {
+    peer.editing = true
   }
 
   removeCompleted() {
-    this.todoStore.removeCompleted()
+    this.peerStore.removeCompleted()
   }
 
-  toggleCompletion(todo: Todo) {
-    this.todoStore.toggleCompletion(todo)
+  toggleCompletion(peer: Peer) {
+    this.peerStore.toggleCompletion(peer)
   }
 
-  remove(todo: Todo) {
-    this.todoStore.remove(todo)
+  remove(peer: Peer) {
+    this.peerStore.remove(peer)
   }
 
-  addTodo() {
-    if (this.newTodoText.trim().length) {
-      this.todoStore.add(this.newTodoText)
-      this.newTodoText = ''
+  addPeer() {
+    if (this.newPeerConfig?.iceServers.length) {
+      this.peerStore.add(this.newPeerConfig)
+      this.newPeerConfig = {
+        iceServers: [{ urls: 'stun:stun.stunprotocol.org:3478' }],
+      }
     }
+  }
+
+  hangup() {
+    this.localStream.getTracks().forEach((t) => t.stop())
+    this.localVideo.srcObject = null
+    this._call.next(false)
+    this.peer.close()
   }
 }
