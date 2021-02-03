@@ -1,25 +1,34 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { HttpClientTestingModule } from '@angular/common/http/testing'
+import { MaterialModule } from './../shared/material/material.module'
+import { ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { HeaderComponent } from './header.component';
+import { HeaderComponent } from './header.component'
+import { NetworkService } from '../network.service'
 
 describe('HeaderComponent', () => {
-  let component: HeaderComponent;
-  let fixture: ComponentFixture<HeaderComponent>;
+  let component: HeaderComponent
+  let fixture: ComponentFixture<HeaderComponent>
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ HeaderComponent ]
-    })
-    .compileComponents();
-  });
+      imports: [
+        MaterialModule,
+        HttpClientTestingModule,
+        BrowserAnimationsModule,
+      ],
+      declarations: [HeaderComponent],
+      providers: [NetworkService],
+    }).compileComponents()
+  })
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HeaderComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    fixture = TestBed.createComponent(HeaderComponent)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+    expect(component).toBeTruthy()
+  })
+})

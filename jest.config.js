@@ -5,5 +5,7 @@ module.exports = {
     '<rootDir>/libs/core/entity',
     '<rootDir>/libs/util/network',
     '<rootDir>/libs/usecase/signaling',
+    '<rootDir>/libs/util/format',
+    '<rootDir>/libs/usecase/contact',
   ],
 }

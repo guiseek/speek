@@ -3,7 +3,7 @@
     <mat-selection-list [multiple]="false" [formControl]="contactControl">
       <mat-list-option *ngFor="let contact of contacts$ | async" [value]="contact">
         <h3 mat-line>
-          {{ contact.first_name }}
+          {{ contact.name }}
         </h3>
         <p mat-line>{{ contact.email }}</p>
         <small class="mat-hint">{{ contact.modified | date: 'short' }}</small>
@@ -36,11 +36,9 @@
   </mat-drawer>
 
   <mat-drawer-content class="speek-sidenav-content">
-    <!-- <h1>Welcome to {{ title }}!</h1> -->
     <speek-header></speek-header>
 
     <main role="main">
-      <pre>{{ contactControl.value | json }}</pre>
       <router-outlet></router-outlet>
     </main>
 

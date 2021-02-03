@@ -17,7 +17,9 @@
     "paths": {
       "@speek/core/entity": ["libs/core/entity/src/index.ts"],
       "@speek/util-network": ["libs/util/network/src/index.ts"],
-      "@speek/usecase/signaling": ["libs/usecase/signaling/src/index.ts"]
+      "@speek/usecase/signaling": ["libs/usecase/signaling/src/index.ts"],
+      "@speek/util/format": ["libs/util/format/src/index.ts"],
+      "@speek/usecase/contact": ["libs/usecase/contact/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

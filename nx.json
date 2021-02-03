@@ -21,6 +21,8 @@
     "server": { "tags": [] },
     "core-entity": { "tags": [] },
     "util-network": { "tags": [] },
-    "usecase-signaling": { "tags": [] }
+    "usecase-signaling": { "tags": [] },
+    "util-format": { "tags": [] },
+    "usecase-contact": { "tags": [] }
   }
 }

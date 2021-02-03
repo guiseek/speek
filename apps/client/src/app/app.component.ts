@@ -1,7 +1,7 @@
 import { FormControl } from '@angular/forms'
 import { Component, OnDestroy, AfterViewInit, ViewChild } from '@angular/core'
 import { ContactService } from './contact.service'
-import { debounceTime, filter, takeUntil } from 'rxjs/operators'
+import { debounceTime, filter, takeUntil, tap } from 'rxjs/operators'
 import { Subject } from 'rxjs'
 import { MatDrawer } from '@angular/material/sidenav'
 
@@ -15,7 +15,7 @@ export class AppComponent implements AfterViewInit, OnDestroy {
 
   @ViewChild('drawer') drawer: MatDrawer
 
-  contacts$ = this.contact.contacts$
+  contacts$ = this.contact.contacts$.pipe(tap((d) => console.log(d[0])))
   contactControl = new FormControl()
   searchControl = new FormControl()
 
@@ -36,7 +36,11 @@ export class AppComponent implements AfterViewInit, OnDestroy {
 
     this.contactControl.valueChanges
       .pipe(takeUntil(this._destroy))
-      .subscribe(() => this.drawer.close())
+      .subscribe((contact) => {
+        console.log(contact)
+        console.log(JSON.stringify(contact))
+        this.drawer.close()
+      })
   }
 
   ngOnDestroy(): void {

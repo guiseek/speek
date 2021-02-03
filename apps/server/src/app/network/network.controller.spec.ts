@@ -1,6 +1,7 @@
 import { NetworkSpeedCheck } from '@speek/util-network';
 import { Test, TestingModule } from '@nestjs/testing';
 import { NetworkController } from './network.controller';
+import { NetworkService } from './network.service';
 
 describe('NetworkController', () => {
   let controller: NetworkController;
@@ -8,7 +9,7 @@ describe('NetworkController', () => {
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [NetworkController],
-      providers: [NetworkSpeedCheck]
+      providers: [NetworkSpeedCheck, NetworkService]
     }).compile();
 
     controller = module.get<NetworkController>(NetworkController);

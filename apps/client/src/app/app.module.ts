@@ -15,6 +15,7 @@ import { HeaderModule } from './header/header.module'
 import { IntroComponent } from './intro/intro.component'
 import { RoomComponent } from './room/room.component'
 import { RouterModule, Routes } from '@angular/router'
+import { ContactService } from './contact.service'
 
 const routes: Routes = [
   { path: '', component: IntroComponent },
@@ -22,7 +23,7 @@ const routes: Routes = [
 ]
 
 @NgModule({
-  declarations: [AppComponent, TodosComponent, RoomComponent],
+  declarations: [AppComponent, TodosComponent, IntroComponent, RoomComponent],
   imports: [
     HeaderModule,
     ButtonsModule,
@@ -35,7 +36,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     BrowserAnimationsModule,
   ],
-  providers: [NetworkService, RemoteTodoStore, Database],
+  providers: [NetworkService, ContactService, RemoteTodoStore, Database],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

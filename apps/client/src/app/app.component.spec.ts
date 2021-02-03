@@ -1,16 +1,29 @@
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ReactiveFormsModule } from '@angular/forms'
+import { MaterialModule } from './shared/material/material.module'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { TestBed } from '@angular/core/testing'
 import { AppComponent } from './app.component'
 import { ButtonsModule } from './buttons/buttons.module'
 import { NetworkService } from './network.service'
-import { RemoteTodoStore } from './store'
+import { RouterTestingModule } from '@angular/router/testing'
+import { HeaderModule } from './header/header.module'
+import { ContactService } from './contact.service'
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [AppComponent],
-      imports: [HttpClientTestingModule, ButtonsModule],
-      providers: [RemoteTodoStore, NetworkService],
+      imports: [
+        BrowserAnimationsModule,
+        HttpClientTestingModule,
+        RouterTestingModule,
+        ReactiveFormsModule,
+        HeaderModule,
+        MaterialModule,
+        ButtonsModule,
+      ],
+      providers: [ContactService, NetworkService],
     }).compileComponents()
   })
 

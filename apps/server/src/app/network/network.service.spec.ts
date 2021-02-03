@@ -1,4 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
+import { NetworkSpeedCheck } from '@speek/util-network';
 import { NetworkService } from './network.service';
 
 describe('NetworkService', () => {
@@ -6,7 +7,7 @@ describe('NetworkService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [NetworkService],
+      providers: [NetworkSpeedCheck, NetworkService],
     }).compile();
 
     service = module.get<NetworkService>(NetworkService);
