@@ -1,82 +1,55 @@
-<!-- <h1>Welcome to {{ title }}!</h1> -->
-
-<main>
-  <video #localVideo autoplay playsinline></video>
-</main>
-
-<mat-accordion class="headers-align">
-  <mat-expansion-panel hideToggle>
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        Contatos
-        <mat-icon class="primary"> people </mat-icon>
-      </mat-panel-title>
-      <mat-panel-description> Encontrar alguém </mat-panel-description>
-    </mat-expansion-panel-header>
-
-    <mat-list>
-      <mat-list-item *ngFor="let contact of people">
+<mat-drawer-container class="speek-container" autosize>
+  <mat-drawer #drawer class="speek-sidenav" position="end" mode="over">
+    <mat-selection-list [multiple]="false" [formControl]="contactControl">
+      <mat-list-option *ngFor="let contact of contacts$ | async" [value]="contact">
         <h3 mat-line>
           {{ contact.first_name }}
         </h3>
         <p mat-line>{{ contact.email }}</p>
         <small class="mat-hint">{{ contact.modified | date: 'short' }}</small>
-      </mat-list-item>
-    </mat-list>
-  </mat-expansion-panel>
-
-  <mat-expansion-panel hideToggle>
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        Chamadas
-        <mat-icon class="primary"> call </mat-icon>
-      </mat-panel-title>
-      <mat-panel-description> Ligar por stream </mat-panel-description>
-    </mat-expansion-panel-header>
-
-    <div class="box">
-      <speek-audio-button [track]="localAudioTrack"></speek-audio-button>
-      <speek-video-button [track]="localVideoTrack"></speek-video-button>
-      <speek-call-button
-        [active]="call$ | async"
-        (clicked)="play()"
-      ></speek-call-button>
-    </div>
-  </mat-expansion-panel>
-
-  <mat-expansion-panel hideToggle>
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        {{ (connection$ | async) ? 'Conectado' : 'Desconectado' }}
-
-        <mat-icon class="primary">
-          {{ (connection$ | async) ? 'cloud_done' : 'cloud_off' }}
+      </mat-list-option>
+    </mat-selection-list>
+    <mat-divider></mat-divider>
+    <div class="flex row center-center pad-12">
+      <mat-form-field appearance="outline">
+        <mat-label>Buscar contato</mat-label>
+        <input matInput [formControl]="searchControl" />
+        <mat-icon matSuffix>
+          <ng-container *ngIf="contacts$ | async as contacts">
+            <ng-container [ngPlural]="contacts.length">
+              <ng-template ngPluralCase="=0"
+                >sentiment_very_dissatisfied</ng-template
+              >
+              <ng-template ngPluralCase="=1"
+                >sentiment_very_satisfied</ng-template
+              >
+              <ng-template ngPluralCase="=2"
+                >sentiment_satisfied_alt</ng-template
+              >
+              <ng-template ngPluralCase="other">search</ng-template>
+            </ng-container>
+          </ng-container>
         </mat-icon>
-      </mat-panel-title>
+        <mat-hint>Busque por nome, sobrenome ou email</mat-hint>
+      </mat-form-field>
+    </div>
+  </mat-drawer>
 
-      <mat-panel-description>
-        {{ (upload$ | async) ? 'Conexão estável' : 'Analisando...' }}
-      </mat-panel-description>
-    </mat-expansion-panel-header>
+  <mat-drawer-content class="speek-sidenav-content">
+    <!-- <h1>Welcome to {{ title }}!</h1> -->
+    <speek-header></speek-header>
 
-    <mat-list class="flex">
-      <mat-list-item>
-        <mat-icon mat-list-icon>cloud_download</mat-icon>
-        <h3 mat-line>
-          {{ (download$ | async)?.mbps }}
-          <small class="mat-hint">mbps</small>
-        </h3>
-        <p mat-line class="mat-hint">Download</p>
-      </mat-list-item>
+    <main role="main">
+      <pre>{{ contactControl.value | json }}</pre>
+      <router-outlet></router-outlet>
+    </main>
 
-      <mat-list-item>
-        <mat-icon mat-list-icon>cloud_upload</mat-icon>
-        <h3 mat-line>
-          {{ (upload$ | async)?.mbps }}
-          <small class="mat-hint">mbps</small>
-        </h3>
-        <p mat-line class="mat-hint">Upload</p>
-      </mat-list-item>
-    </mat-list>
-  </mat-expansion-panel>
-</mat-accordion>
+    <mat-toolbar color="primary">
+      <span></span>
+      <span class="spacer"></span>
+      <button mat-icon-button (click)="drawer.toggle()">
+        <mat-icon class="primary"> menu_vert </mat-icon>
+      </button>
+    </mat-toolbar>
+  </mat-drawer-content>
+</mat-drawer-container>

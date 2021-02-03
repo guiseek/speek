@@ -1,0 +1,20 @@
+:host {
+  display: flex;
+  flex-direction: column;
+
+  .mat-expansion-panel {
+    .mat-expansion-panel-header-description {
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .mat-list {
+      display: flex;
+
+      > section {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+  }
+}

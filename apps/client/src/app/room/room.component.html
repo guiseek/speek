@@ -1,0 +1,60 @@
+<video #localVideo autoplay playsinline></video>
+
+<mat-accordion class="headers-align">
+  <mat-expansion-panel hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Chamadas
+        <mat-icon class="primary"> call </mat-icon>
+      </mat-panel-title>
+      <mat-panel-description> Ligar por stream </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <div class="flex center-center">
+      <speek-audio-button [track]="localAudioTrack"></speek-audio-button>
+      <speek-video-button [track]="localVideoTrack"></speek-video-button>
+
+      <speek-call-button
+        [active]="call$ | async"
+        (clicked)="play()"
+      ></speek-call-button>
+    </div>
+  </mat-expansion-panel>
+
+  <!-- <mat-expansion-panel hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{ (connection$ | async) ? 'Conectado' : 'Desconectado' }}
+
+        <mat-icon class="primary">
+          {{ (connection$ | async) ? 'cloud_done' : 'cloud_off' }}
+        </mat-icon>
+      </mat-panel-title>
+
+      <mat-panel-description>
+        {{ (upload$ | async) ? 'Conexão estável' : 'Analisando...' }}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <mat-list class="flex">
+      <mat-list-item>
+        <mat-icon mat-list-icon>cloud_download</mat-icon>
+        <h3 mat-line>
+          {{ (download$ | async)?.mbps }}
+          <small class="mat-hint">mbps</small>
+        </h3>
+        <p mat-line class="mat-hint">Download</p>
+      </mat-list-item>
+
+      <mat-list-item>
+        <mat-icon mat-list-icon>cloud_upload</mat-icon>
+        <h3 mat-line>
+          {{ (upload$ | async)?.mbps }}
+          <small class="mat-hint">mbps</small>
+        </h3>
+        <p mat-line class="mat-hint">Upload</p>
+      </mat-list-item>
+    </mat-list>
+  </mat-expansion-panel> -->
+</mat-accordion>
+

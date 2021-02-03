@@ -4,6 +4,9 @@
 
 export const environment = {
   production: false,
+  signaling: {
+    url: 'ws://localhost:3000'
+  }
 }
 
 /*

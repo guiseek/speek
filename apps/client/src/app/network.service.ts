@@ -17,9 +17,13 @@ export class NetworkService {
 
   private _upload = new BehaviorSubject<SpeedResponse>(initialState)
   upload$ = this._upload.asObservable()
+  private _upLoader = new BehaviorSubject<boolean>(true)
+  upLoader$ = this._upLoader.asObservable()
 
   private _download = new BehaviorSubject<SpeedResponse>(initialState)
   download$ = this._download.asObservable()
+  private _downLoader = new BehaviorSubject<boolean>(true)
+  downLoader$ = this._downLoader.asObservable()
 
   constructor(readonly http: HttpClient) {}
 
@@ -30,16 +34,28 @@ export class NetworkService {
   }
 
   loadUp(bytes = 500000) {
+    this._upload.next(initialState)
     this.http.get<SpeedResponse>(`${this._api}/upload/${bytes}`).subscribe(
-      (response) => this._upload.next(response),
+      (response) => this._setUp(response),
       ({ message }) => this._error.next(message)
     )
   }
 
   loadDown(bytes = 500000) {
+    this._downLoader.next(true)
     this.http.get<SpeedResponse>(`${this._api}/download/${bytes}`).subscribe(
-      (response) => this._download.next(response),
+      (response) => this._setDown(response),
       ({ message }) => this._error.next(message)
     )
+  }
+
+  private _setUp(response: SpeedResponse) {
+    this._upload.next(response)
+    this._upLoader.next(false)
+  }
+
+  private _setDown(response: SpeedResponse) {
+    this._download.next(response)
+    this._downLoader.next(false)
   }
 }
