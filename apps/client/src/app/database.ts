@@ -1,6 +1,4 @@
-export type WithTarget<T = HTMLElement> = Event & {
-  target: T
-}
+import { WithTarget } from '@speek/core/entity'
 
 export interface DBConfig {
   name: string
@@ -44,7 +42,7 @@ export class Database implements DBConfig {
     const config: DBConfig = {
       name: 'speek',
       stores: {},
-      version: 1
+      version: 1,
     }
     this.db = null
     this.name = config.name

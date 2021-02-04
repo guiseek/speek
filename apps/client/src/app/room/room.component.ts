@@ -1,3 +1,4 @@
+import { PeerConnection } from '@speek/usecase/peer'
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
 import { BehaviorSubject } from 'rxjs'
 
@@ -5,9 +6,12 @@ import { BehaviorSubject } from 'rxjs'
   selector: 'speek-room',
   templateUrl: './room.component.html',
   styleUrls: ['./room.component.scss'],
+  providers: [PeerConnection],
 })
 export class RoomComponent implements OnInit {
+  connection = new PeerConnection()
   peer: RTCPeerConnection
+  code = this.connection.code
 
   localStream: MediaStream
   localVideoTrack: MediaStreamTrack
@@ -20,7 +24,10 @@ export class RoomComponent implements OnInit {
   private _call = new BehaviorSubject<boolean>(false)
   call$ = this._call.asObservable()
 
-  constructor() {}
+  constructor() {
+    // this.connection.execute()
+
+  }
 
   ngOnInit(): void {}
 
@@ -47,6 +54,8 @@ export class RoomComponent implements OnInit {
     this.localStream.getTracks().forEach((t) => t.stop())
     this.localVideo.srcObject = null
     this._call.next(false)
-    this.peer.close()
+    if (this.peer) {
+      this.peer.close()
+    }
   }
 }

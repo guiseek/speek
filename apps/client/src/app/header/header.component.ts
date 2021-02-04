@@ -1,4 +1,4 @@
-import { WithTarget } from './../database'
+import { WithTarget } from '@speek/core/entity'
 import {
   Component,
   Input,

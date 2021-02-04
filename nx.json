@@ -23,6 +23,8 @@
     "util-network": { "tags": [] },
     "usecase-signaling": { "tags": [] },
     "util-format": { "tags": [] },
-    "usecase-contact": { "tags": [] }
+    "usecase-contact": { "tags": [] },
+    "shared-ui": { "tags": [] },
+    "usecase-peer": { "tags": [] }
   }
 }

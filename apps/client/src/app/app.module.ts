@@ -1,3 +1,4 @@
+import { environment } from './../environments/environment'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { BrowserModule } from '@angular/platform-browser'
@@ -10,16 +11,19 @@ import { NgModule } from '@angular/core'
 import { AppComponent } from './app.component'
 import { Database } from './database'
 import { TodosComponent } from './todos/todos.component'
-import { MaterialModule } from './shared/material/material.module'
+import { MaterialModule, SharedUiModule } from '@speek/shared/ui'
 import { HeaderModule } from './header/header.module'
 import { IntroComponent } from './intro/intro.component'
 import { RoomComponent } from './room/room.component'
 import { RouterModule, Routes } from '@angular/router'
 import { ContactService } from './contact.service'
+import { RoomGuard } from './room/room.guard'
+import { SOCKET_TOKEN } from './adapters/socket.factory'
+import { SocketAdapter, SocketFactory } from './adapters/socket.adapter'
 
 const routes: Routes = [
   { path: '', component: IntroComponent },
-  { path: ':room', component: RoomComponent },
+  { path: ':room', canActivate: [RoomGuard], component: RoomComponent },
 ]
 
 @NgModule({
@@ -36,7 +40,18 @@ const routes: Routes = [
     ReactiveFormsModule,
     BrowserAnimationsModule,
   ],
-  providers: [NetworkService, ContactService, RemoteTodoStore, Database],
+  providers: [
+    NetworkService,
+    ContactService,
+    RemoteTodoStore,
+    Database,
+    { provide: SOCKET_TOKEN, useValue: environment.signaling ?? {} },
+    {
+      provide: SocketAdapter,
+      useFactory: SocketFactory,
+      deps: [SOCKET_TOKEN],
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

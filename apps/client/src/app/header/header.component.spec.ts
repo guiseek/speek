@@ -1,7 +1,7 @@
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
-import { MaterialModule } from './../shared/material/material.module'
 import { ComponentFixture, TestBed } from '@angular/core/testing'
+import { MaterialModule } from '@speek/shared/ui'
 
 import { HeaderComponent } from './header.component'
 import { NetworkService } from '../network.service'

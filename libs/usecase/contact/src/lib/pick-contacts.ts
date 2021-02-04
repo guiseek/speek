@@ -14,6 +14,7 @@ export class PickContacts implements UseCase<ContactProperty[], ContactInfo[]> {
         )
       } catch (ex) {
         // Handle any errors here.
+        return Promise.reject()
       }
     }
   }

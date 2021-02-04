@@ -1,12 +1,12 @@
 import { SpeekAction, SpeekPayload } from '@speek/core/entity'
 import { Signaling } from './ports/signaling'
-import { Socket } from './ports/socket'
+import { SpeekSocket } from './ports/socket'
 import { Observable } from 'rxjs'
 
 export class Signal implements Signaling<SpeekPayload> {
-  private readonly socket: Socket
+  private readonly socket: SpeekSocket
 
-  constructor(socket: Socket) {
+  constructor(socket: SpeekSocket) {
     this.socket = socket
   }
 

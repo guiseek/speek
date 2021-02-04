@@ -7,5 +7,7 @@ module.exports = {
     '<rootDir>/libs/usecase/signaling',
     '<rootDir>/libs/util/format',
     '<rootDir>/libs/usecase/contact',
+    '<rootDir>/libs/shared/ui',
+    '<rootDir>/libs/usecase/peer',
   ],
 }
