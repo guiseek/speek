@@ -44,6 +44,15 @@ body {
   margin: 0;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
 }
+body .mat-drawer-backdrop.mat-drawer-shown {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+body .mat-expansion-panel {
+  background-color: transparent;
+}
+body .mat-drawer-content {
+  overflow: unset;
+}
 
 .auto-scroll {
   max-height: 100%;
@@ -105,11 +114,4 @@ body {
   .mat-expansion-panel-header-description {
     flex-basis: 0;
   }
-  // .mat-expansion-panel-body {
-  //   padding: 0;
-  // }
-  // .mat-expansion-panel-header-description {
-  //   justify-content: space-between;
-  //   align-items: center;
-  // }
 }
