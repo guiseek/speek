@@ -54,9 +54,18 @@ export abstract class SpeekSocket {
   abstract emit(ev: string, ...args: any[]): SpeekSocket
   abstract disconnect(): SpeekSocket
   abstract close(): SpeekSocket
-  abstract on(event: string, listener: Function): import('component-emitter')<string>
-  abstract once(event: string, listener: Function): import('component-emitter')<string>
-  abstract off(event?: string, listener?: Function): import('component-emitter')<string>
+  abstract on(
+    event: string,
+    listener: Function
+  ): import('component-emitter')<string>
+  abstract once(
+    event: string,
+    listener: Function
+  ): import('component-emitter')<string>
+  abstract off(
+    event?: string,
+    listener?: Function
+  ): import('component-emitter')<string>
   abstract listeners(event: string): Function[]
   abstract hasListeners(event: string): boolean
 }
