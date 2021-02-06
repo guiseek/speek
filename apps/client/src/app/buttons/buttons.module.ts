@@ -9,6 +9,6 @@ import { CallButton } from './call/call.button'
 @NgModule({
   imports: [CommonModule, MatIconModule, MatButtonModule],
   declarations: [AudioButton, VideoButton, CallButton],
-  exports: [AudioButton, VideoButton, CallButton]
+  exports: [AudioButton, VideoButton, CallButton],
 })
 export class ButtonsModule {}

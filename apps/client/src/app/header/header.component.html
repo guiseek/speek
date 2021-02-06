@@ -2,7 +2,9 @@
   <mat-expansion-panel-header>
     <mat-panel-title> Guilherme </mat-panel-title>
     <mat-panel-description>
-      {{ time | date: 'h:mm a MMM d, y' }}
+      <span>
+        {{ time$ | async | date: 'h:mm:ss a MMM d, y' }}
+      </span>
 
       <mat-icon class="primary">
         {{ (connection$ | async) ? 'cloud_done' : 'cloud_off' }}

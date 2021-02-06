@@ -1,5 +1,7 @@
+import { DrawerService } from './../drawer.service'
 import { PickContacts } from '@speek/usecase/contact'
 import { Component, OnInit } from '@angular/core'
+import { TerminalToolbarEvent } from '@speek/shared/ui'
 
 @Component({
   selector: 'speek-intro',
@@ -9,9 +11,18 @@ import { Component, OnInit } from '@angular/core'
 })
 export class IntroComponent implements OnInit {
   contacts = []
-  constructor(readonly useCase: PickContacts) {}
+  constructor(readonly useCase: PickContacts, readonly drawer: DrawerService) {}
 
   ngOnInit(): void {
     // this.useCase.execute().then((contacts) => (this.contacts = contacts))
   }
+
+  onClicked(data: TerminalToolbarEvent) {
+    console.log(data)
+  }
+  onClose(data: TerminalToolbarEvent) {
+    console.log(data)
+  }
+
+
 }

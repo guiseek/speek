@@ -1,3 +1,21 @@
-<h1 class="mat-display-4">Speek</h1>
+<speek-terminal
+  (close)="onClicked($event)"
+  (minimize)="onClicked($event)"
+  (fullscreen)="onClicked($event)"
+></speek-terminal>
 
-<pre>{{contacts | json}}</pre>
+<pre>{{ contacts | json }}</pre>
+
+<speek-toolbar>
+  <a mat-icon-button routerLink="/">
+    <mat-icon class="primary"> home </mat-icon>
+  </a>
+
+  <a mat-icon-button routerLink="/room">
+    <mat-icon class="primary"> meeting_room </mat-icon>
+  </a>
+
+  <button mat-icon-button (click)="drawer.toggle()">
+    <mat-icon class="primary"> menu_vert </mat-icon>
+  </button>
+</speek-toolbar>

@@ -26,7 +26,6 @@ export class RoomComponent implements OnInit {
 
   constructor() {
     // this.connection.execute()
-
   }
 
   ngOnInit(): void {}

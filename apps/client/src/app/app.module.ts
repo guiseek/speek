@@ -7,11 +7,18 @@ import { ButtonsModule } from './buttons/buttons.module'
 import { NetworkService } from './network.service'
 import { RemoteTodoStore } from './store'
 import { NgModule } from '@angular/core'
+import { StoreModule } from '@ngrx/store'
+import { EffectsModule } from '@ngrx/effects'
+import { StoreDevtoolsModule } from '@ngrx/store-devtools'
 
 import { AppComponent } from './app.component'
 import { Database } from './database'
 import { TodosComponent } from './todos/todos.component'
-import { MaterialModule, SharedUiModule } from '@speek/shared/ui'
+import {
+  MaterialModule,
+  SharedUiModule,
+  TerminalModule,
+} from '@speek/shared/ui'
 import { HeaderModule } from './header/header.module'
 import { IntroComponent } from './intro/intro.component'
 import { RoomComponent } from './room/room.component'
@@ -23,7 +30,12 @@ import { SocketAdapter, SocketFactory } from './adapters/socket.adapter'
 
 const routes: Routes = [
   { path: '', component: IntroComponent },
-  { path: ':room', canActivate: [RoomGuard], component: RoomComponent },
+  {
+    path: ':id',
+    loadChildren: () =>
+      import('./contact/contact.module').then((m) => m.ContactModule),
+  },
+  // { path: ':room', canActivate: [RoomGuard], component: RoomComponent },
 ]
 
 @NgModule({
@@ -35,10 +47,23 @@ const routes: Routes = [
     FormsModule,
     BrowserModule,
     MaterialModule,
-
+    TerminalModule,
+    SharedUiModule,
     HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
+    StoreModule.forRoot(
+      {},
+      {
+        metaReducers: !environment.production ? [] : [],
+        runtimeChecks: {
+          strictActionImmutability: true,
+          strictStateImmutability: true,
+        },
+      }
+    ),
+    EffectsModule.forRoot([]),
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
   ],
   providers: [
     NetworkService,

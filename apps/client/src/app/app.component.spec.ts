@@ -1,4 +1,4 @@
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { ReactiveFormsModule } from '@angular/forms'
 import { MaterialModule } from '@speek/shared/ui'
 import { HttpClientTestingModule } from '@angular/common/http/testing'

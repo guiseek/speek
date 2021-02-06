@@ -3,13 +3,19 @@ import { HttpClient } from '@angular/common/http'
 import { UserContact } from '@speek/core/entity'
 import { find } from '@speek/util/format'
 import { BehaviorSubject } from 'rxjs'
+import { GetMyContact } from '@speek/usecase/contact'
 
 @Injectable()
 export class ContactService {
   private _contacts = new BehaviorSubject<UserContact[]>([])
   readonly contacts$ = this._contacts.asObservable()
   private _allContacts: UserContact[] = []
-  constructor(private _http: HttpClient) {}
+
+  private getMyContact: GetMyContact
+
+  constructor(private _http: HttpClient) {
+    this.getMyContact = new GetMyContact(_http)
+  }
 
   loadContacts(q: string = ''): void {
     this.getContacts().subscribe((contacts) => {
@@ -21,6 +27,15 @@ export class ContactService {
   }
 
   private setContacts(contacts: UserContact[] = []) {}
+
+  getContact() {
+    return this.getMyContact.execute()
+    // return this._http.get<UserContact>('/api/contact')
+  }
+
+  callContactPeer(id: string, peerId: string) {
+    return this._http.post(`/api/contact/${id}/call`, { peerId })
+  }
 
   private getContacts() {
     return this._http.get<UserContact[]>('/assets/data/contacts.json')
