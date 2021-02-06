@@ -1,5 +1,5 @@
-import { NgModule, LOCALE_ID } from '@angular/core';
-import { registerLocaleData } from '@angular/common';
+import { NgModule, LOCALE_ID } from '@angular/core'
+import { registerLocaleData } from '@angular/common'
 import pt from '@angular/common/locales/pt'
 import br from '@angular/common/locales/extra/br'
 registerLocaleData(pt, 'pt-BR', br)
@@ -11,9 +11,6 @@ import { BrowserModule } from '@angular/platform-browser'
 import { HttpClientModule } from '@angular/common/http'
 import { NetworkService } from './network.service'
 import { RemoteTodoStore } from './store'
-import { StoreModule } from '@ngrx/store'
-import { EffectsModule } from '@ngrx/effects'
-import { StoreDevtoolsModule } from '@ngrx/store-devtools'
 import { AppComponent } from './app.component'
 import { Database } from './database'
 import { TodosComponent } from './todos/todos.component'
@@ -33,11 +30,13 @@ import { SOCKET_TOKEN } from './adapters/socket.factory'
 import { SocketAdapter, SocketFactory } from './adapters/socket.adapter'
 
 const routes: Routes = [
-  { path: '', component: IntroComponent },
+  // { path: '', component: IntroComponent },
   {
-    path: ':id',
+    path: '',
     loadChildren: () =>
-      import('./contact/contact.module').then((m) => m.ContactModule),
+      import('@speek/feature/contact').then(
+        (module) => module.FeatureContactModule
+      ),
   },
   // { path: ':room', canActivate: [RoomGuard], component: RoomComponent },
 ]
@@ -56,18 +55,6 @@ const routes: Routes = [
     HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    StoreModule.forRoot(
-      {},
-      {
-        metaReducers: !environment.production ? [] : [],
-        runtimeChecks: {
-          strictActionImmutability: true,
-          strictStateImmutability: true,
-        },
-      }
-    ),
-    EffectsModule.forRoot([]),
-    !environment.production ? StoreDevtoolsModule.instrument() : [],
   ],
   providers: [
     NetworkService,
@@ -80,8 +67,7 @@ const routes: Routes = [
       useFactory: SocketFactory,
       deps: [SOCKET_TOKEN],
     },
-    { provide: LOCALE_ID, useValue: 'pt-BR' }
-    // { provide: LOCALE_ID, useValue: 'pt' }
+    { provide: LOCALE_ID, useValue: 'pt-BR' },
   ],
   bootstrap: [AppComponent],
 })
