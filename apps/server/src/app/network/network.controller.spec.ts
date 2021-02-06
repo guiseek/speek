@@ -1,21 +1,21 @@
-import { NetworkSpeedCheck } from '@speek/util-network';
-import { Test, TestingModule } from '@nestjs/testing';
-import { NetworkController } from './network.controller';
-import { NetworkService } from './network.service';
+import { NetworkSpeedCheck } from '@speek/util-network'
+import { Test, TestingModule } from '@nestjs/testing'
+import { NetworkController } from './network.controller'
+import { NetworkService } from './network.service'
 
 describe('NetworkController', () => {
-  let controller: NetworkController;
+  let controller: NetworkController
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [NetworkController],
-      providers: [NetworkSpeedCheck, NetworkService]
-    }).compile();
+      providers: [NetworkSpeedCheck, NetworkService],
+    }).compile()
 
-    controller = module.get<NetworkController>(NetworkController);
-  });
+    controller = module.get<NetworkController>(NetworkController)
+  })
 
   it('should be defined', () => {
-    expect(controller).toBeDefined();
-  });
-});
+    expect(controller).toBeDefined()
+  })
+})
