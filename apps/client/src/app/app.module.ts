@@ -19,6 +19,7 @@ import {
   SharedUiModule,
   TerminalModule,
   ButtonsModule,
+  SpeekDrawer,
 } from '@speek/shared/ui'
 import { HeaderModule } from './header/header.module'
 import { IntroComponent } from './intro/intro.component'
@@ -28,6 +29,7 @@ import { ContactService } from './contact.service'
 import { RoomGuard } from './room/room.guard'
 import { SOCKET_TOKEN } from './adapters/socket.factory'
 import { SocketAdapter, SocketFactory } from './adapters/socket.adapter'
+import { MatDrawer } from '@angular/material/sidenav'
 
 const routes: Routes = [
   // { path: '', component: IntroComponent },
@@ -60,6 +62,7 @@ const routes: Routes = [
     NetworkService,
     ContactService,
     RemoteTodoStore,
+    SpeekDrawer,
     Database,
     { provide: SOCKET_TOKEN, useValue: environment.signaling ?? {} },
     {

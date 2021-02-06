@@ -13,11 +13,11 @@ export class ContactService implements ContactRepository {
 
   constructor(private http: HttpClient) {}
 
-  whoIsOutThere() {
-    return this.http.get<PeerContact>('/api/contact/public')
+  whoIsOutThere(peer: PeerContact) {
+    return this.http.post<PeerContact[]>('/api/contact/public', peer)
   }
 
-  whoAmI(): Observable<PeerContact> {
+  whoAmI() {
     return this.http.get<PeerContact>('/api/contact')
   }
 

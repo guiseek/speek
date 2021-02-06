@@ -1,2 +1,2 @@
+export * from './lib/ports/peer.storage'
 export * from './lib/peer-connection'
-export * from './lib/usecase-peer'

@@ -1,4 +1,4 @@
-import { MaterialModule } from '@speek/shared/ui';
+import { MaterialModule, SharedUiModule } from '@speek/shared/ui';
 import { FeatureContactContainer } from './feature-contact/feature-contact.container'
 import { AdapterDataAccessModule } from '@speek/adapter/data-access'
 import { CommonModule } from '@angular/common'
@@ -8,6 +8,7 @@ import { NgModule } from '@angular/core'
 @NgModule({
   imports: [
     CommonModule,
+    SharedUiModule,
     MaterialModule,
     AdapterDataAccessModule,
     RouterModule.forChild([{ path: '', component: FeatureContactContainer }]),
