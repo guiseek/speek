@@ -5,13 +5,8 @@ const networkSpeed = new NetworkSpeedCheck()
 async function getNetworkDownloadSpeed() {
   const baseUrl = 'http://eu.httpbin.org/stream-bytes/500000'
   const fileSizeInBytes = 500000
-  const speed = await networkSpeed.checkDownloadSpeed(
-    baseUrl,
-    fileSizeInBytes
-  )
-  console.log(`Download Speed:`)
-  console.log(speed);
-
+  const speed = await networkSpeed.checkDownloadSpeed(baseUrl, fileSizeInBytes)
+  console.log(`Download Speed: `, speed.mbps)
 }
 
 async function getNetworkUploadSpeed() {
@@ -25,13 +20,8 @@ async function getNetworkUploadSpeed() {
     },
   }
   const fileSizeInBytes = 2000000
-  const speed = await networkSpeed.checkUploadSpeed(
-    options,
-    fileSizeInBytes
-  )
-  console.log(`Upload Speed:`)
-  console.log(speed);
-
+  const speed = await networkSpeed.checkUploadSpeed(options, fileSizeInBytes)
+  console.log(`Upload Speed: `, speed.mbps)
 }
 
 getNetworkDownloadSpeed()

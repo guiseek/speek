@@ -40,23 +40,32 @@ export interface SocketOptions {
   withCredentials: boolean
 }
 
-export interface Socket {
+export abstract class SpeekSocket {
   // io: Manager
-  io: Socket
+  io: SpeekSocket
   id: string
   connected: boolean
   disconnected: boolean
   receiveBuffer: (readonly any[])[]
-  active(): boolean
-  connect(): Socket
-  open(): Socket
-  send(...args: any[]): Socket
-  emit(ev: string, ...args: any[]): Socket
-  disconnect(): Socket
-  close(): Socket
-  on(event: string, listener: Function): import('component-emitter')<string>
-  once(event: string, listener: Function): import('component-emitter')<string>
-  off(event?: string, listener?: Function): import('component-emitter')<string>
-  listeners(event: string): Function[]
-  hasListeners(event: string): boolean
+  abstract active(): boolean
+  abstract connect(): SpeekSocket
+  abstract open(): SpeekSocket
+  abstract send(...args: any[]): SpeekSocket
+  abstract emit(ev: string, ...args: any[]): SpeekSocket
+  abstract disconnect(): SpeekSocket
+  abstract close(): SpeekSocket
+  abstract on(
+    event: string,
+    listener: Function
+  ): import('component-emitter')<string>
+  abstract once(
+    event: string,
+    listener: Function
+  ): import('component-emitter')<string>
+  abstract off(
+    event?: string,
+    listener?: Function
+  ): import('component-emitter')<string>
+  abstract listeners(event: string): Function[]
+  abstract hasListeners(event: string): boolean
 }

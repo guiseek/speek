@@ -6,13 +6,13 @@ export interface SpeekData {
 export interface SpeekPayload {
   sender: string
   code: string
-  data: SpeekData
+  data?: SpeekData
 }
 
 export class SpeekPayload {
   constructor(
     public sender: string,
     public code: string,
-    public data: SpeekData = {}
+    public data?: SpeekData
   ) {}
 }

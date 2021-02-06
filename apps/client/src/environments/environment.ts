@@ -5,8 +5,8 @@
 export const environment = {
   production: false,
   signaling: {
-    url: 'ws://localhost:3000'
-  }
+    url: 'ws://localhost:3000',
+  },
 }
 
 /*

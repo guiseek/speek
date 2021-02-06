@@ -11,15 +11,15 @@
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$client-primary: mat-palette($mat-indigo);
-$client-accent: mat-palette($mat-pink, A200, A100, A400);
+$client-primary: mat-palette($mat-deep-purple);
+$client-accent: mat-palette($mat-light-blue, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).
 $client-warn: mat-palette($mat-red);
 
 // Create the theme object. A theme consists of configurations for individual
 // theming systems such as "color" or "typography".
-$client-theme: mat-light-theme(
+$client-theme: mat-dark-theme(
   (
     color: (
       primary: $client-primary,
@@ -40,9 +40,54 @@ html,
 body {
   height: 100%;
 }
+
+body {
+  > .speek-loader {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #121212;
+    z-index: -1;
+    @keyframes sprite {
+      to {
+        background-position: -7932px;
+      }
+    }
+
+    .speek {
+      width: 661px;
+      height: 456px;
+      background: url('/assets/hi-speek__sprite.svg');
+      animation: sprite 2400ms steps(12) 1200ms;
+      transform: translate(-25%, -25%) scale(0.5);
+    }
+    @media only screen and (min-width: 661px) {
+      .speek {
+        transform: scale(1);
+      }
+    }
+  }
+}
+
 body {
   margin: 0;
   font-family: Roboto, 'Helvetica Neue', sans-serif;
+}
+body .mat-drawer-backdrop.mat-drawer-shown {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+body .mat-drawer-content {
+  overflow: unset;
+}
+body .mat-expansion-panel {
+  background-color: transparent;
+  &:not(.mat-expanded):not([aria-disabled='true'])
+    .mat-expansion-panel-header:hover {
+    background: transparent;
+  }
 }
 
 .auto-scroll {
@@ -94,4 +139,27 @@ body {
 }
 .mat-form-field {
   width: 100%;
+}
+
+.headers-align {
+  .mat-expansion-panel-header-title {
+    justify-content: space-between;
+    align-items: center;
+  }
+  .mat-expansion-panel-header-title,
+  .mat-expansion-panel-header-description {
+    flex-basis: 0;
+  }
+}
+
+// Drag Handler
+// - terminal
+.cdk-drag-dragging .cdk-drag-handle {
+  cursor: grabbing;
+}
+.cdk-drag-handle {
+  cursor: grab;
+  &:active {
+    cursor: grabbing;
+  }
 }

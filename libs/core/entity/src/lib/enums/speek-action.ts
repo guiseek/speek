@@ -8,5 +8,5 @@ export enum SpeekAction {
   Candidate = 'candidate',
   Offer = 'offer',
   Answer = 'answer',
-  Connection = 'connection'
+  Connection = 'connection',
 }

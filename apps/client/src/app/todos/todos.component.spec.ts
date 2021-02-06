@@ -1,30 +1,29 @@
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { NetworkService } from '../network.service';
-import { RemoteTodoStore } from '../store';
+import { HttpClientTestingModule } from '@angular/common/http/testing'
+import { ComponentFixture, TestBed } from '@angular/core/testing'
+import { NetworkService } from '../network.service'
+import { RemoteTodoStore } from '../store'
 
-import { TodosComponent } from './todos.component';
+import { TodosComponent } from './todos.component'
 
 describe('TodosComponent', () => {
-  let component: TodosComponent;
-  let fixture: ComponentFixture<TodosComponent>;
+  let component: TodosComponent
+  let fixture: ComponentFixture<TodosComponent>
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      declarations: [ TodosComponent ],
-      providers: [RemoteTodoStore, NetworkService]
-    })
-    .compileComponents();
-  });
+      declarations: [TodosComponent],
+      providers: [RemoteTodoStore, NetworkService],
+    }).compileComponents()
+  })
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TodosComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    fixture = TestBed.createComponent(TodosComponent)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+    expect(component).toBeTruthy()
+  })
+})

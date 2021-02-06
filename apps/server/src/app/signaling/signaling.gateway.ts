@@ -13,9 +13,8 @@ import { Server, Socket } from 'socket.io'
 @WebSocketGateway()
 export class SignalingGateway
   implements OnGatewayConnection, OnGatewayDisconnect {
-    @WebSocketServer()
-    server: Server
-
+  @WebSocketServer()
+  server: Server
 
   @SubscribeMessage(SpeekAction.CreateOrJoin)
   create(

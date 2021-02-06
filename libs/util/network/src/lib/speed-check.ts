@@ -24,11 +24,13 @@ export class NetworkSpeedCheck {
     fileSizeInBytes: number
   ): Promise<SpeedResponse> {
     this.validateDownloadSpeedParams(baseUrl, fileSizeInBytes)
+
     let startTime: number
     let protocol = this._protocol(baseUrl)
+
     return new Promise((resolve, _) => {
       return protocol.get(baseUrl, (response) => {
-        response.once('data', () => {
+        response.once('data', (data: Buffer) => {
           startTime = new Date().getTime()
         })
 
@@ -39,6 +41,7 @@ export class NetworkSpeedCheck {
           const bps = +(bitsLoaded / duration).toFixed(2)
           const kbps = +(bps / 1000).toFixed(2)
           const mbps = +(kbps / 1000).toFixed(2)
+
           resolve({ bps, kbps, mbps })
         })
       })
@@ -54,10 +57,13 @@ export class NetworkSpeedCheck {
     let startTime: number
     const defaultData = this.generateTestData(fileSizeInBytes / 1000)
     const data = JSON.stringify({ defaultData })
+
     return new Promise((resolve, reject) => {
       let req = http.request(options, (res) => {
         res.setEncoding('utf8')
+
         res.on('data', () => {})
+
         res.on('end', () => {
           const endTime = new Date().getTime()
           const duration = (endTime - startTime) / 1000
@@ -65,13 +71,14 @@ export class NetworkSpeedCheck {
           const bps = +(bitsLoaded / duration).toFixed(2)
           const kbps = +(bps / 1000).toFixed(2)
           const mbps = +(kbps / 1000).toFixed(2)
+
           resolve({ bps, kbps, mbps })
         })
       })
+
       startTime = new Date().getTime()
-      req.on('error', (error) => {
-        reject(error)
-      })
+
+      req.on('error', (error) => reject(error))
       req.write(data)
       req.end()
     })

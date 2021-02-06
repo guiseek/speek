@@ -1,9 +1,20 @@
+import { DrawerService } from './drawer.service'
+import { UserContact } from '@speek/core/entity'
 import { FormControl } from '@angular/forms'
 import { Component, OnDestroy, AfterViewInit, ViewChild } from '@angular/core'
 import { ContactService } from './contact.service'
-import { debounceTime, filter, takeUntil, tap } from 'rxjs/operators'
+import {
+  debounceTime,
+  filter,
+  first,
+  map,
+  takeUntil,
+  tap,
+} from 'rxjs/operators'
 import { Subject } from 'rxjs'
 import { MatDrawer } from '@angular/material/sidenav'
+import { groupByLetter } from '@speek/usecase/contact'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'speek-root',
@@ -15,22 +26,36 @@ export class AppComponent implements AfterViewInit, OnDestroy {
 
   @ViewChild('drawer') drawer: MatDrawer
 
-  contacts$ = this.contact.contacts$.pipe(tap((d) => console.log(d[0])))
+  contacts$ = this.contact.contacts$.pipe(
+    map((contacts) => groupByLetter<UserContact>(contacts, 'name'))
+  )
+  contacts: UserContact[]
+
   contactControl = new FormControl()
   searchControl = new FormControl()
 
-  constructor(readonly contact: ContactService) {}
+  constructor(
+    private _router: Router,
+    readonly contact: ContactService,
+    readonly drawerService: DrawerService
+  ) {}
 
   ngAfterViewInit(): void {
-    console.log(this.drawer)
-
+    this.drawerService.init(this.drawer)
     this.contact.loadContacts()
+    this.contact.getContact()
+    // .then((contact) => {
+    //   console.log(contact)
+    //   this._router.navigate([contact.id])
+    // })
+    // .pipe(takeUntil(this._destroy), debounceTime(400))
+    // .subscribe((contact) => console.log(contact))
 
     this.searchControl.valueChanges
       .pipe(
         takeUntil(this._destroy),
-        debounceTime(1000),
-        filter((value) => !!value)
+        // filter((value) => !!value),
+        debounceTime(400)
       )
       .subscribe((query) => this.contact.loadContacts(query))
 
