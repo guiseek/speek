@@ -9,7 +9,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { BrowserModule } from '@angular/platform-browser'
 import { HttpClientModule } from '@angular/common/http'
-import { ButtonsModule } from './buttons/buttons.module'
 import { NetworkService } from './network.service'
 import { RemoteTodoStore } from './store'
 import { StoreModule } from '@ngrx/store'
@@ -22,6 +21,7 @@ import {
   MaterialModule,
   SharedUiModule,
   TerminalModule,
+  ButtonsModule,
 } from '@speek/shared/ui'
 import { HeaderModule } from './header/header.module'
 import { IntroComponent } from './intro/intro.component'
