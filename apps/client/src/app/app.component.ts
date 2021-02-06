@@ -43,7 +43,6 @@ export class AppComponent implements AfterViewInit, OnDestroy {
   ngAfterViewInit(): void {
     this.drawerService.init(this.drawer)
     this.contact.loadContacts()
-    this.contact.getContact()
     // .then((contact) => {
     //   console.log(contact)
     //   this._router.navigate([contact.id])

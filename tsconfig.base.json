@@ -21,7 +21,9 @@
       "@speek/util/format": ["libs/util/format/src/index.ts"],
       "@speek/usecase/contact": ["libs/usecase/contact/src/index.ts"],
       "@speek/shared/ui": ["libs/shared/ui/src/index.ts"],
-      "@speek/usecase/peer": ["libs/usecase/peer/src/index.ts"]
+      "@speek/usecase/peer": ["libs/usecase/peer/src/index.ts"],
+      "@speek/adapter/data-access": ["libs/adapter/data-access/src/index.ts"],
+      "@speek/feature/contact": ["libs/feature/contact/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
