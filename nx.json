@@ -1,14 +1,9 @@
 {
   "npmScope": "speek",
-  "affected": {
-    "defaultBase": "main"
-  },
+  "affected": { "defaultBase": "main" },
   "implicitDependencies": {
     "angular.json": "*",
-    "package.json": {
-      "dependencies": "*",
-      "devDependencies": "*"
-    },
+    "package.json": { "dependencies": "*", "devDependencies": "*" },
     "tsconfig.base.json": "*",
     "tslint.json": "*",
     ".eslintrc.json": "*",
@@ -17,48 +12,22 @@
   "tasksRunnerOptions": {
     "default": {
       "runner": "@nrwl/workspace/tasks-runners/default",
-      "options": {
-        "cacheableOperations": ["build", "lint", "test", "e2e"]
-      }
+      "options": { "cacheableOperations": ["build", "lint", "test", "e2e"] }
     }
   },
   "projects": {
-    "client": {
-      "tags": []
-    },
-    "client-e2e": {
-      "tags": [],
-      "implicitDependencies": ["client"]
-    },
-    "server": {
-      "tags": []
-    },
-    "core-entity": {
-      "tags": []
-    },
-    "util-network": {
-      "tags": []
-    },
-    "usecase-signaling": {
-      "tags": []
-    },
-    "util-format": {
-      "tags": []
-    },
-    "usecase-contact": {
-      "tags": []
-    },
-    "shared-ui": {
-      "tags": []
-    },
-    "usecase-peer": {
-      "tags": []
-    },
-    "adapter-data-access": {
-      "tags": []
-    },
-    "feature-contact": {
-      "tags": []
-    }
+    "client": { "tags": [] },
+    "client-e2e": { "tags": [], "implicitDependencies": ["client"] },
+    "server": { "tags": [] },
+    "core-entity": { "tags": [] },
+    "util-network": { "tags": [] },
+    "usecase-signaling": { "tags": [] },
+    "util-format": { "tags": [] },
+    "usecase-contact": { "tags": [] },
+    "shared-ui": { "tags": [] },
+    "usecase-peer": { "tags": [] },
+    "adapter-data-access": { "tags": [] },
+    "feature-contact": { "tags": [] },
+    "util-testing": { "tags": [] }
   }
 }

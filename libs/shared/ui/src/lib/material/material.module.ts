@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core'
 import { ScrollingModule } from '@angular/cdk/scrolling'
 import { MatIconModule } from '@angular/material/icon'
+import { MatCardModule } from '@angular/material/card'
 import { MatToolbarModule } from '@angular/material/toolbar'
 import { MatSidenavModule } from '@angular/material/sidenav'
 import { MatListModule } from '@angular/material/list'
@@ -15,6 +16,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle'
 @NgModule({
   exports: [
     MatListModule,
+    MatCardModule,
     MatIconModule,
     MatInputModule,
     MatButtonModule,
