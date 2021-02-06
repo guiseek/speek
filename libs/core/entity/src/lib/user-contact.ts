@@ -1,28 +1,22 @@
-export interface UserContact {
-  name:           string;
-  nickname:       string;
-  additionalName: string;
-  displayName:    number | string;
-  phoneType:      PhoneType;
-  phoneNumber:    number | string;
+import { UUID } from '@speek/util/format'
+export class UserContact {
+  id: string
+  name!: string
+  nickname?: string
+  additionalName?: string
+  phoneType!: PhoneType
+  phoneNumber!: number | string
+  displayName?: number | string
+  constructor(id?: string) {
+    this.id = id ?? UUID.short()
+  }
 }
 
 export enum PhoneType {
-  Casa = "Casa",
-  Celular = "Celular",
-  CelularTimCelular = "Celular (Tim - Celular)",
-  Claro = "Claro",
-  Empty = "",
-  Home = "Home",
-  Maringá = "Maringá",
-  Mobile = "Mobile",
-  Other = "Other",
-  Outros = "Outros",
-  Portugal = "Portugal",
-  Residencial = "Residencial",
-  SãoJoão = "São João",
-  Trabalho = "Trabalho",
-  Vivo = "Vivo",
-  VivoCelular = "Vivo (Celular)",
-  Work = "Work",
+  Empty = '',
+  Casa = 'Casa',
+  Work = 'Work',
+  Mobile = 'Mobile',
+  Celular = 'Celular',
+  Trabalho = 'Trabalho',
 }
