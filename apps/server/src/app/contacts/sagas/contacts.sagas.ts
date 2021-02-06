@@ -14,7 +14,7 @@ export class ContactsGameSagas {
   peerCalled = (events$: Observable<any>): Observable<ICommand> => {
     return events$.pipe(
       ofType(ContactCalledPeerEvent),
-      delay(1000),
+      // delay(1000),
       map((event) => {
         console.log(clc.redBright('Inside [ContactsGameSagas] Saga'))
         return new DropAncientItemCommand(event.contactId, itemId)

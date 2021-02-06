@@ -1,6 +1,10 @@
-import { PeerContact } from '@speek/core/entity'
+import { PeerContact, UserContact } from '@speek/core/entity'
 import { Observable } from 'rxjs'
 
 export abstract class ContactRepository {
-  whoAmI: () => Observable<PeerContact>
+  abstract contacts$: Observable<UserContact[]>
+  abstract whoAmI(): Observable<PeerContact>
+  abstract whoIsOutThere(): Observable<PeerContact>
+  abstract loadContacts(): Observable<UserContact[]>
+  abstract query(q?: string): void
 }

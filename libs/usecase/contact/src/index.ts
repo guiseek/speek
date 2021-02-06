@@ -1,4 +1,6 @@
 export * from './lib/utils/group-by-letter'
 export * from './lib/ports/contact.repository'
+export * from './lib/who-is-out-there'
+export * from './lib/load-contacts'
 export * from './lib/pick-contacts'
 export * from './lib/who-am-i'
