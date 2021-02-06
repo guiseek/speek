@@ -1,9 +1,9 @@
 import { Observable } from 'rxjs'
 import { SpeekAction, SpeekPayload } from '@speek/core/entity'
-import { Socket, SocketOptions } from './ports/socket'
+import { SpeekSocket, SocketOptions } from './ports/socket'
 import { Signal } from './signal'
 
-const socket: Partial<Socket> = {
+const socket: Partial<SpeekSocket> = {
   on: jest.fn(),
   send: jest.fn(),
 }
@@ -12,7 +12,7 @@ describe('Signal', () => {
   let signal: Signal
 
   beforeEach(() => {
-    signal = new Signal(socket as Socket)
+    signal = new Signal(socket as SpeekSocket)
   })
   it('should create an instance', () => {
     expect(signal).toBeTruthy()
