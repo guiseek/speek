@@ -297,6 +297,16 @@
             "jestConfig": "libs/util/format/jest.config.js",
             "passWithNoTests": true
           }
+        },
+        "build": {
+          "builder": "@nrwl/node:package",
+          "options": {
+            "outputPath": "dist/libs/util/format",
+            "tsConfig": "libs/util/format/tsconfig.lib.json",
+            "packageJson": "libs/util/format/package.json",
+            "main": "libs/util/format/src/index.ts",
+            "assets": ["libs/util/format/*.md"]
+          }
         }
       }
     },

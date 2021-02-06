@@ -1,25 +1,25 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { PeerComponent } from './peer.component';
+import { ComponentFixture, TestBed } from '@angular/core/testing'
+import { provideMockStore } from '@ngrx/store/testing'
+import { PeerComponent } from './peer.component'
 
 describe('PeerComponent', () => {
-  let component: PeerComponent;
-  let fixture: ComponentFixture<PeerComponent>;
+  let component: PeerComponent
+  let fixture: ComponentFixture<PeerComponent>
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PeerComponent ]
-    })
-    .compileComponents();
-  });
+      declarations: [PeerComponent],
+      providers: [provideMockStore()]
+    }).compileComponents()
+  })
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PeerComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+    fixture = TestBed.createComponent(PeerComponent)
+    component = fixture.componentInstance
+    fixture.detectChanges()
+  })
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+    expect(component).toBeTruthy()
+  })
+})

@@ -1,6 +1,3 @@
 export class PeerContact {
-  constructor(
-    readonly id: string,
-    readonly me: boolean
-  ) {}
+  constructor(readonly id: string, readonly me: boolean) {}
 }

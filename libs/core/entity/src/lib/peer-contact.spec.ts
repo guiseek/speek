@@ -1,7 +1,7 @@
-import { PeerContact } from './peer-contact';
+import { PeerContact } from './peer-contact'
 
 describe('PeerContact', () => {
   it('should create an instance', () => {
-    expect(new PeerContact()).toBeTruthy();
-  });
-});
+    expect(new PeerContact()).toBeTruthy()
+  })
+})

@@ -14,7 +14,6 @@ export const loadPeerFailure = createAction(
   props<{ error: any }>()
 )
 
-
 export const getMyPeerContact = createAction('[Peer Page] Get My PeerContact')
 
 export const getMyPeerContactSuccess = createAction(

@@ -31,13 +31,19 @@ const peerReducer = createReducer(
   ),
   on(PeerActions.loadPeerFailure, (state, { error }) => ({ ...state, error })),
 
-
-  on(PeerActions.getMyPeerContact, (state) => ({ ...state, loaded: false, error: null })),
+  on(PeerActions.getMyPeerContact, (state) => ({
+    ...state,
+    loaded: false,
+    error: null,
+  })),
   on(PeerActions.getMyPeerContactSuccess, (state, { peer }) =>
     peerAdapter.setOne(peer, { ...state, loaded: true })
   ),
-  on(PeerActions.getMyPeerContactFailure, (state, { error }) => ({ ...state, error }))
-  )
+  on(PeerActions.getMyPeerContactFailure, (state, { error }) => ({
+    ...state,
+    error,
+  }))
+)
 
 export function reducer(state: State | undefined, action: Action) {
   return peerReducer(state, action)

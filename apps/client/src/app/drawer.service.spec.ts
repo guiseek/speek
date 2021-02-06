@@ -1,16 +1,16 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing'
 
-import { DrawerService } from './drawer.service';
+import { DrawerService } from './drawer.service'
 
 describe('DrawerService', () => {
-  let service: DrawerService;
+  let service: DrawerService
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(DrawerService);
-  });
+    TestBed.configureTestingModule({})
+    service = TestBed.inject(DrawerService)
+  })
 
   it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
-});
+    expect(service).toBeTruthy()
+  })
+})

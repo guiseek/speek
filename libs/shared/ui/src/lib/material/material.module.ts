@@ -12,7 +12,6 @@ import { MatDividerModule } from '@angular/material/divider'
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 import { MatButtonToggleModule } from '@angular/material/button-toggle'
 
-
 @NgModule({
   exports: [
     MatListModule,

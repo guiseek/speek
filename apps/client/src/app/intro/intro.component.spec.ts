@@ -1,3 +1,5 @@
+import { MatIconModule } from '@angular/material/icon';
+import { SharedUiModule, TerminalModule } from '@speek/shared/ui'
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 
 import { IntroComponent } from './intro.component'
@@ -9,6 +11,7 @@ describe('IntroComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [IntroComponent],
+      imports: [SharedUiModule, TerminalModule, MatIconModule],
     }).compileComponents()
   })
 

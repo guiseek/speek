@@ -23,6 +23,4 @@ export class IntroComponent implements OnInit {
   onClose(data: TerminalToolbarEvent) {
     console.log(data)
   }
-
-
 }

@@ -1,3 +1,4 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed, async } from '@angular/core/testing'
 
 import { Observable } from 'rxjs'
@@ -17,7 +18,10 @@ describe('PeerEffects', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [NxModule.forRoot()],
+      imports: [
+        NxModule.forRoot(),
+        HttpClientTestingModule,
+      ],
       providers: [
         PeerEffects,
         DataPersistence,
