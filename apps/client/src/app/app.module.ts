@@ -1,3 +1,9 @@
+import { NgModule, LOCALE_ID } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import pt from '@angular/common/locales/pt'
+import br from '@angular/common/locales/extra/br'
+registerLocaleData(pt, 'pt-BR', br)
+
 import { environment } from './../environments/environment'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
@@ -6,11 +12,9 @@ import { HttpClientModule } from '@angular/common/http'
 import { ButtonsModule } from './buttons/buttons.module'
 import { NetworkService } from './network.service'
 import { RemoteTodoStore } from './store'
-import { NgModule } from '@angular/core'
 import { StoreModule } from '@ngrx/store'
 import { EffectsModule } from '@ngrx/effects'
 import { StoreDevtoolsModule } from '@ngrx/store-devtools'
-
 import { AppComponent } from './app.component'
 import { Database } from './database'
 import { TodosComponent } from './todos/todos.component'
@@ -76,6 +80,8 @@ const routes: Routes = [
       useFactory: SocketFactory,
       deps: [SOCKET_TOKEN],
     },
+    { provide: LOCALE_ID, useValue: 'pt-BR' }
+    // { provide: LOCALE_ID, useValue: 'pt' }
   ],
   bootstrap: [AppComponent],
 })

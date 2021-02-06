@@ -9,5 +9,7 @@ if (environment.production) {
 }
 
 platformBrowserDynamic()
-  .bootstrapModule(AppModule)
+  .bootstrapModule(AppModule, {
+    providers: []
+  })
   .catch((err) => console.error(err))
