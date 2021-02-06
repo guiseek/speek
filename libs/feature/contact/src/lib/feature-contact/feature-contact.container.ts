@@ -1,7 +1,13 @@
+import {
+  WhoAmI,
+  WhoIsOutThere,
+  ContactRepository,
+} from '@speek/usecase/contact'
 import { Component, OnInit } from '@angular/core'
 import { PeerContact, UserContact } from '@speek/core/entity'
-import { ContactRepository, WhoAmI } from '@speek/usecase/contact'
+import { PeerStorage } from '@speek/usecase/peer'
 import { Observable, of } from 'rxjs'
+import { SpeekDrawer } from '@speek/shared/ui'
 
 @Component({
   selector: 'feature-contact',
@@ -10,14 +16,33 @@ import { Observable, of } from 'rxjs'
 })
 export class FeatureContactContainer implements OnInit {
   whoAmI: WhoAmI
+  whoIsOutThere: WhoIsOutThere
 
-  contact$: Observable<PeerContact> = of({ id: '00000000', me: false })
+  contact$: Observable<PeerContact>
   contacts$: Observable<UserContact[]> = of([])
-  constructor(readonly repository: ContactRepository) {
-    this.whoAmI = new WhoAmI(repository)
+  peers$: Observable<PeerContact[]> = of([])
+  constructor(
+    readonly repository: ContactRepository,
+    readonly drawer: SpeekDrawer,
+    readonly peer: PeerStorage
+  ) {
+    this.whoAmI = new WhoAmI(this.repository)
+    this.whoIsOutThere = new WhoIsOutThere(this.repository)
   }
 
   ngOnInit(): void {
-    this.contact$ = this.whoAmI.execute()
+    if (this.peer.getStoredValue()) {
+      this.contact$ = of(this.peer.getStoredValue())
+      this.peers$ = this.whoIsOutThere.execute(this.peer.getStoredValue())
+    } else {
+      this.contact$ = this.whoAmI.execute()
+      this.peer.onUpdate.subscribe((peer: PeerContact) => {
+        this.peers$ = this.whoIsOutThere.execute(peer)
+      })
+    }
+  }
+
+  store(id: string) {
+    this.peer.store(new PeerContact(id, true))
   }
 }

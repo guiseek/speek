@@ -1,20 +1,13 @@
-import { DrawerService } from './drawer.service'
 import { UserContact } from '@speek/core/entity'
 import { FormControl } from '@angular/forms'
 import { Component, OnDestroy, AfterViewInit, ViewChild } from '@angular/core'
 import { ContactService } from './contact.service'
-import {
-  debounceTime,
-  filter,
-  first,
-  map,
-  takeUntil,
-  tap,
-} from 'rxjs/operators'
+import { debounceTime, map, takeUntil } from 'rxjs/operators'
 import { Subject } from 'rxjs'
 import { MatDrawer } from '@angular/material/sidenav'
 import { groupByLetter } from '@speek/usecase/contact'
 import { Router } from '@angular/router'
+import { SpeekDrawer } from '@speek/shared/ui'
 
 @Component({
   selector: 'speek-root',
@@ -37,18 +30,12 @@ export class AppComponent implements AfterViewInit, OnDestroy {
   constructor(
     private _router: Router,
     readonly contact: ContactService,
-    readonly drawerService: DrawerService
+    readonly speekDrawer: SpeekDrawer
   ) {}
 
   ngAfterViewInit(): void {
-    this.drawerService.init(this.drawer)
+    this.speekDrawer.init(this.drawer)
     this.contact.loadContacts()
-    // .then((contact) => {
-    //   console.log(contact)
-    //   this._router.navigate([contact.id])
-    // })
-    // .pipe(takeUntil(this._destroy), debounceTime(400))
-    // .subscribe((contact) => console.log(contact))
 
     this.searchControl.valueChanges
       .pipe(

@@ -1,1 +1,17 @@
-<h1 class="mat-display-4">{{ (contact$ | async)?.id }}</h1>
+<ng-container *ngIf="(contact$ | async) as contact">
+  <h1 class="mat-display-4">{{ contact?.id }}</h1>
+  <button mat-button (click)="store(contact.id)">
+    Usar
+  </button>
+
+  <button mat-button *ngIf="!peer.getStoredValue()" (click)="store(contact.id)">
+    Usar
+  </button>
+</ng-container>
+
+<speek-toolbar>
+  <span class="spacer"></span>
+  <button mat-icon-button (click)="drawer.toggle()">
+    <mat-icon class="primary"> menu_vert </mat-icon>
+  </button>
+</speek-toolbar>

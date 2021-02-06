@@ -29,7 +29,6 @@
         />
 
         <mat-icon coloe="accent" matSuffix>
-          <!-- <ng-container *ngIf="contacts$ | async as contacts"> -->
           <ng-container [ngPlural]="(contacts$ | async)?.length">
             <ng-template ngPluralCase="=0"
               >sentiment_very_dissatisfied</ng-template
@@ -40,7 +39,6 @@
             <ng-template ngPluralCase="=2">sentiment_satisfied_alt</ng-template>
             <ng-template ngPluralCase="other">search</ng-template>
           </ng-container>
-          <!-- </ng-container> -->
         </mat-icon>
         <mat-hint>Busque por nome, sobrenome ou email</mat-hint>
       </mat-form-field>
@@ -53,19 +51,5 @@
     <main role="main">
       <router-outlet></router-outlet>
     </main>
-
-    <!-- <speek-toolbar>
-      <a mat-icon-button routerLink="/">
-        <mat-icon class="primary"> home </mat-icon>
-      </a>
-
-      <a mat-icon-button routerLink="/room">
-        <mat-icon class="primary"> meeting_room </mat-icon>
-      </a>
-
-      <button mat-icon-button (click)="drawer.toggle()">
-        <mat-icon class="primary"> menu_vert </mat-icon>
-      </button>
-    </speek-toolbar> -->
   </mat-drawer-content>
 </mat-drawer-container>
