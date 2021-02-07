@@ -8,6 +8,7 @@
     "nx": "nx",
     "start": "nx run-many --target serve --projects client,server --maxParallel 2 --parallel",
     "build": "ng build",
+    "build:gh-pages": "nx run client:build:gh-pages",
     "test": "jest --detectOpenHandles --coverage",
     "tdd": "jest --detectOpenHandles --coverage --watch",
     "lint": "nx workspace-lint && ng lint",
