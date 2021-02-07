@@ -9,7 +9,7 @@ module.exports = {
     '<rootDir>/libs/usecase/contact',
     '<rootDir>/libs/shared/ui',
     '<rootDir>/libs/usecase/peer',
-    '<rootDir>/libs/contact/feature',
+    '<rootDir>/libs/feature/contact',
     '<rootDir>/libs/adapter/data-access',
     '<rootDir>/libs/util/testing',
   ],

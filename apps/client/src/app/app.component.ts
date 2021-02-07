@@ -1,12 +1,12 @@
 import { Component, OnDestroy, AfterViewInit, ViewChild } from '@angular/core'
-import { ContactRepository, LoadContacts } from '@speek/usecase/contact'
-import { Grouped, UserContact } from '@speek/core/entity'
 import { debounceTime, switchMap, takeUntil, tap } from 'rxjs/operators'
+import { ContactRepository, LoadContacts } from '@speek/usecase/contact'
+import { NetworkService } from '@speek/adapter/data-access'
+import { Grouped, UserContact } from '@speek/core/entity'
 import { MatDrawer } from '@angular/material/sidenav'
 import { SpeekDrawer } from '@speek/shared/ui'
 import { FormControl } from '@angular/forms'
 import { Observable, Subject } from 'rxjs'
-import { NetworkService } from './network.service'
 
 @Component({
   selector: 'speek-root',

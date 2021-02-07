@@ -9,6 +9,8 @@
   </button>
 </section>
 
+<pre>{{ (peers$ | async) | json }}</pre>
+
 <speek-toolbar x-align="end">
   <span class="spacer"></span>
   <button mat-icon-button (click)="drawer.toggle()">

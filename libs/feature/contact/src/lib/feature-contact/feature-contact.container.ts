@@ -28,6 +28,10 @@ export class FeatureContactContainer implements OnInit {
   ) {
     this.whoAmI = new WhoAmI(this.repository)
     this.whoIsOutThere = new WhoIsOutThere(this.repository)
+    const eventSource = new EventSource('/api/contact/sse')
+    eventSource.onmessage = ({ data }) => {
+      console.log('New message', JSON.parse(data))
+    }
   }
 
   ngOnInit(): void {
