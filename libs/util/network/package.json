@@ -1,5 +1,0 @@
-{
-  "name": "@speek/util-network",
-  "version": "0.0.1",
-  "bin": "src/bin/speed-check.ts"
-}
