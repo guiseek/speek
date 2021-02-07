@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http'
 import { ContactRepository } from '@speek/usecase/contact'
 import { PeerContact, UserContact } from '@speek/core/entity'
-import { BehaviorSubject, Observable } from 'rxjs'
+import { BehaviorSubject } from 'rxjs'
 import { Injectable } from '@angular/core'
 import { find } from '@speek/util/format'
 

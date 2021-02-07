@@ -90,12 +90,15 @@ body .mat-expansion-panel {
   }
 }
 
+.spacer {
+  flex: 1 1 auto;
+}
 .auto-scroll {
   max-height: 100%;
   overflow: hidden;
 }
 
-.flex {
+body .flex {
   display: flex;
 
   &.row {
@@ -108,16 +111,22 @@ body .mat-expansion-panel {
     flex: 1;
   }
 
+  &.justify-start {
+    justify-content: flex-start;
+  }
+  &.justify-end {
+    justify-content: flex-end;
+  }
   &.align-center {
     align-items: center;
   }
   &.justify-center {
-    justify-content: space-between;
+    justify-content: center;
   }
 
   &.center-center {
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
   }
 }
 .pad {

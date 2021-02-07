@@ -1,13 +1,13 @@
-<mat-expansion-panel (afterExpand)="networnState()">
+<mat-expansion-panel (afterExpand)="afterExpand.emit()">
   <mat-expansion-panel-header>
-    <mat-panel-title> Guilherme </mat-panel-title>
+    <mat-panel-title> Guilherme Siquinelli </mat-panel-title>
     <mat-panel-description>
       <span>
-        {{ time$ | async | date: 'h:mm:ss a MMM d, y' }}
+        {{ (time$ | async) | date: 'h:mm:ss a MMM d, y' }}
       </span>
 
       <mat-icon class="primary">
-        {{ (connection$ | async) ? 'cloud_done' : 'cloud_off' }}
+        {{ connection ? 'cloud_done' : 'cloud_off' }}
       </mat-icon>
     </mat-panel-description>
   </mat-expansion-panel-header>
@@ -15,12 +15,12 @@
     <mat-list-item>
       <mat-icon mat-list-icon>cloud_upload</mat-icon>
       <h3 mat-line>
-        {{ (upload$ | async)?.mbps }}
+        {{ upload?.mbps }}
         <small class="mat-hint">mbps</small>
       </h3>
       <p mat-line class="mat-hint">Upload</p>
       <mat-progress-spinner
-        *ngIf="network.upLoader$ | async"
+        *ngIf="upLoader"
         color="accent"
         mode="indeterminate"
         [diameter]="24"
@@ -29,12 +29,12 @@
     <mat-list-item>
       <mat-icon mat-list-icon>cloud_download</mat-icon>
       <h3 mat-line>
-        {{ (download$ | async)?.mbps }}
+        {{ download?.mbps }}
         <small class="mat-hint">mbps</small>
       </h3>
       <p mat-line class="mat-hint">Download</p>
       <mat-progress-spinner
-        *ngIf="network.downLoader$ | async"
+        *ngIf="downLoader"
         color="accent"
         mode="indeterminate"
         [diameter]="24"

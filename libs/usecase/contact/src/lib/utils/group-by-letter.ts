@@ -1,4 +1,4 @@
-export type Grouped<T> = { group: string; children: T[] }
+import { Grouped } from '@speek/core/entity'
 
 export function groupByLetter<T>(data: T[], prop: keyof T) {
   return Object.values(

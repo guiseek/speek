@@ -1,4 +1,4 @@
-import { Component, HostBinding } from '@angular/core'
+import { Component, HostBinding, Input } from '@angular/core'
 
 @Component({
   selector: 'speek-toolbar',
@@ -8,4 +8,7 @@ import { Component, HostBinding } from '@angular/core'
 export class ToolbarComponent {
   @HostBinding('class.speek-toolbar')
   speekToolbar = true
+
+  @Input('x-align')
+  xAlign: 'start' | 'center' | 'end' = 'center'
 }
