@@ -33,14 +33,6 @@
       justify-content: flex-end;
       background: linear-gradient(transparent, 30%, #212121);
     }
-    .mat-selection-list {
-      .mat-subheader {
-        font-size: 240%;
-        opacity: 0.6;
-      }
-      max-height: calc(100% - 120px);
-      overflow: auto;
-    }
   }
 
   .mat-expansion-panel-header-title {

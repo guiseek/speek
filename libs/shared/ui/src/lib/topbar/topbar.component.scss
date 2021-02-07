@@ -3,6 +3,12 @@
   flex-direction: column;
 
   .mat-expansion-panel {
+    .mat-expansion-panel-header-title {
+      width: 60px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
     .mat-expansion-panel-header-description {
       justify-content: space-between;
       align-items: center;

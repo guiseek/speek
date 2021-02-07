@@ -1,52 +1,25 @@
 <mat-drawer-container class="speek-container" autosize>
   <mat-drawer #drawer class="speek-sidenav" position="end" mode="over">
-    <mat-selection-list [formControl]="contactControl" [multiple]="false">
-      <ng-container *ngFor="let grouped of contacts$ | async">
-        <div mat-subheader>{{ grouped.group }}</div>
-        <mat-list-option
-          *ngFor="let contact of grouped.children"
-          [value]="contact?.phoneNumber"
-        >
-          <mat-icon mat-list-icon>contact</mat-icon>
-          <div mat-line>{{ contact.name }}</div>
-          <div mat-line class="mat-hint">{{ contact.phoneNumber }}</div>
-        </mat-list-option>
-        <mat-divider></mat-divider>
-      </ng-container>
-    </mat-selection-list>
+    <speek-contacts
+      [control]="contactControl"
+      [contacts]="contacts$ | async"
+    ></speek-contacts>
     <mat-divider></mat-divider>
     <div class="flex row center-center pad-12">
-      <mat-form-field color="accent" appearance="outline">
-        <mat-label>Buscar contato</mat-label>
-
-        <input
-          matInput
-          autofocus
-          cdkFocusInitial
-          name="given_name"
-          autocomplete="given-name"
-          [formControl]="searchControl"
-        />
-
-        <mat-icon coloe="accent" matSuffix>
-          <ng-container [ngPlural]="(contacts$ | async)?.length">
-            <ng-template ngPluralCase="=0"
-              >sentiment_very_dissatisfied</ng-template
-            >
-            <ng-template ngPluralCase="=1"
-              >sentiment_very_satisfied</ng-template
-            >
-            <ng-template ngPluralCase="=2">sentiment_satisfied_alt</ng-template>
-            <ng-template ngPluralCase="other">search</ng-template>
-          </ng-container>
-        </mat-icon>
-        <mat-hint>Busque por nome, sobrenome ou email</mat-hint>
-      </mat-form-field>
+      <speek-search [icon]="icon" [control]="searchControl"></speek-search>
     </div>
   </mat-drawer>
 
   <mat-drawer-content class="speek-sidenav-content">
-    <speek-header></speek-header>
+    <speek-topbar
+      (afterExpand)="networnState()"
+      [upload]="network.upload$ | async"
+      [download]="network.download$ | async"
+      [connection]="network.connection$ | async"
+      [downLoader]="network.upLoader$ | async"
+      [downLoader]="network.downLoader$ | async"
+    ></speek-topbar>
+    <!-- <speek-header></speek-header> -->
 
     <main role="main">
       <router-outlet></router-outlet>

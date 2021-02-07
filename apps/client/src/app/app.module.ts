@@ -12,24 +12,25 @@ import { HttpClientModule } from '@angular/common/http'
 import { NetworkService } from './network.service'
 import { RemoteTodoStore } from './store'
 import { AppComponent } from './app.component'
-import { Database } from './database'
 import { TodosComponent } from './todos/todos.component'
 import {
   MaterialModule,
   SharedUiModule,
   TerminalModule,
+  ContactsModule,
   ButtonsModule,
+  SearchModule,
+  TopbarModule,
   SpeekDrawer,
 } from '@speek/shared/ui'
-import { HeaderModule } from './header/header.module'
 import { IntroComponent } from './intro/intro.component'
 import { RoomComponent } from './room/room.component'
 import { RouterModule, Routes } from '@angular/router'
-import { ContactService } from './contact.service'
-import { RoomGuard } from './room/room.guard'
 import { SOCKET_TOKEN } from './adapters/socket.factory'
 import { SocketAdapter, SocketFactory } from './adapters/socket.adapter'
-import { MatDrawer } from '@angular/material/sidenav'
+import { Peer, ContactService } from '@speek/adapter/data-access'
+import { PeerStorage } from '@speek/usecase/peer'
+import { ContactRepository } from '@speek/usecase/contact'
 
 const routes: Routes = [
   // { path: '', component: IntroComponent },
@@ -40,14 +41,15 @@ const routes: Routes = [
         (module) => module.FeatureContactModule
       ),
   },
-  // { path: ':room', canActivate: [RoomGuard], component: RoomComponent },
 ]
 
 @NgModule({
   declarations: [AppComponent, TodosComponent, IntroComponent, RoomComponent],
   imports: [
-    HeaderModule,
+    SearchModule,
+    TopbarModule,
     ButtonsModule,
+    ContactsModule,
     RouterModule.forRoot(routes, { initialNavigation: 'enabled' }),
     FormsModule,
     BrowserModule,
@@ -60,16 +62,17 @@ const routes: Routes = [
   ],
   providers: [
     NetworkService,
-    ContactService,
+    // ContactService,
     RemoteTodoStore,
     SpeekDrawer,
-    Database,
     { provide: SOCKET_TOKEN, useValue: environment.signaling ?? {} },
     {
       provide: SocketAdapter,
       useFactory: SocketFactory,
       deps: [SOCKET_TOKEN],
     },
+    { provide: PeerStorage, useClass: Peer },
+    { provide: ContactRepository, useClass: ContactService },
     { provide: LOCALE_ID, useValue: 'pt-BR' },
   ],
   bootstrap: [AppComponent],

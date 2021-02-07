@@ -1,0 +1,10 @@
+:host {
+  max-height: calc(100% - 120px);
+  overflow: auto;
+  .mat-selection-list {
+    .mat-subheader {
+      font-size: 240%;
+      opacity: 0.6;
+    }
+  }
+}

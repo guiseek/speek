@@ -1,0 +1,14 @@
+<mat-selection-list [formControl]="control" [multiple]="false">
+  <ng-container *ngFor="let grouped of contacts">
+    <div mat-subheader>{{ grouped.group }}</div>
+    <mat-list-option
+      *ngFor="let contact of grouped.children"
+      [value]="contact?.phoneNumber"
+    >
+      <mat-icon mat-list-icon>contact</mat-icon>
+      <div mat-line>{{ contact.name }}</div>
+      <div mat-line class="mat-hint">{{ contact.phoneNumber }}</div>
+    </mat-list-option>
+    <mat-divider></mat-divider>
+  </ng-container>
+</mat-selection-list>

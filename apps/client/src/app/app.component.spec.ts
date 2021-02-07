@@ -6,8 +6,6 @@ import { TestBed } from '@angular/core/testing'
 import { AppComponent } from './app.component'
 import { NetworkService } from './network.service'
 import { RouterTestingModule } from '@angular/router/testing'
-import { HeaderModule } from './header/header.module'
-import { ContactService } from './contact.service'
 
 describe('AppComponent', () => {
   beforeEach(async () => {
@@ -18,11 +16,10 @@ describe('AppComponent', () => {
         HttpClientTestingModule,
         RouterTestingModule,
         ReactiveFormsModule,
-        HeaderModule,
         MaterialModule,
         ButtonsModule,
       ],
-      providers: [ContactService, NetworkService],
+      providers: [NetworkService],
     }).compileComponents()
   })
 
