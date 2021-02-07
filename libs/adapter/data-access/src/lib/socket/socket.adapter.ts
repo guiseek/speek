@@ -7,10 +7,6 @@ export interface SocketConfig {
   options?: any
 }
 
-export function SocketFactory(config: SocketConfig) {
-  return new SocketAdapter(config)
-}
-
 export class SocketAdapter {
   subscribersCounter: Record<string, number> = {}
   eventObservables$: Record<string, Observable<any>> = {}

@@ -1,5 +1,14 @@
 import 'jest-preset-angular'
 
+
+const EventSourceInstance = {
+  addEventListener: jest.fn(),
+};
+const EventSource = jest.fn(() => EventSourceInstance);
+
+(window as any).EventSource = EventSource
+
+
 Object.defineProperty(window, 'RTCPeerConnection', () => ({
   writable: true,
   value: () => ({

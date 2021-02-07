@@ -1,10 +1,18 @@
+import { ContactRepository } from '@speek/usecase/contact'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { ReactiveFormsModule } from '@angular/forms'
-import { MaterialModule, ButtonsModule } from '@speek/shared/ui'
+import {
+  MaterialModule,
+  ButtonsModule,
+  ContactsModule,
+  SearchModule,
+  TopbarModule,
+  SpeekDrawer,
+} from '@speek/shared/ui'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { TestBed } from '@angular/core/testing'
 import { AppComponent } from './app.component'
-import { NetworkService } from './network.service'
+import { ContactService, NetworkService } from '@speek/adapter/data-access'
 import { RouterTestingModule } from '@angular/router/testing'
 
 describe('AppComponent', () => {
@@ -16,10 +24,17 @@ describe('AppComponent', () => {
         HttpClientTestingModule,
         RouterTestingModule,
         ReactiveFormsModule,
+        TopbarModule,
+        ContactsModule,
+        SearchModule,
         MaterialModule,
         ButtonsModule,
       ],
-      providers: [NetworkService],
+      providers: [
+        SpeekDrawer,
+        NetworkService,
+        { provide: ContactRepository, useClass: ContactService },
+      ],
     }).compileComponents()
   })
 

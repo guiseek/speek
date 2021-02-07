@@ -1,8 +1,8 @@
-import { SpeedResponse } from '@speek/core/entity'
 import { HttpClient, HttpErrorResponse } from '@angular/common/http'
-import { Injectable } from '@angular/core'
 import { BehaviorSubject, Subject, throwError } from 'rxjs'
 import { catchError, retry } from 'rxjs/operators'
+import { SpeedResponse } from '@speek/core/entity'
+import { Injectable } from '@angular/core'
 
 const initialState: SpeedResponse = { bps: 0, kbps: 0, mbps: 0 }
 
