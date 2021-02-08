@@ -33,6 +33,7 @@ import {
 } from '@speek/adapter/data-access'
 import { PeerStorage } from '@speek/usecase/peer'
 import { ContactRepository } from '@speek/usecase/contact'
+import { PeerController } from '@speek/util/peer'
 
 @NgModule({
   declarations: [AppComponent, RoomComponent],
@@ -58,15 +59,23 @@ import { ContactRepository } from '@speek/usecase/contact'
               (module) => module.FeatureContactModule
             ),
         },
+        {
+          path: 'room',
+          component: RoomComponent,
+        },
+        {
+          path: 'room/:code',
+          component: RoomComponent,
+        },
       ],
       { initialNavigation: 'enabled' }
     ),
   ],
   providers: [
-    NetworkService,
-    // ContactService,
-    RemoteTodoStore,
     SpeekDrawer,
+    NetworkService,
+    RemoteTodoStore,
+    PeerController,
     { provide: SOCKET_TOKEN, useValue: environment.signaling ?? {} },
     {
       provide: SocketAdapter,

@@ -24,7 +24,8 @@
       "@speek/usecase/peer": ["libs/usecase/peer/src/index.ts"],
       "@speek/adapter/data-access": ["libs/adapter/data-access/src/index.ts"],
       "@speek/feature/contact": ["libs/feature/contact/src/index.ts"],
-      "@speek/util/testing": ["libs/util/testing/src/index.ts"]
+      "@speek/util/testing": ["libs/util/testing/src/index.ts"],
+      "@speek/util/peer": ["libs/util/peer/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

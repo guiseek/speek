@@ -31,7 +31,7 @@ export interface ModelProperties {
   keyPath: string
 }
 
-export class Database implements DBConfig {
+export class IndexedDB implements DBConfig {
   db: IDBDatabase
   name: string
   version: number
