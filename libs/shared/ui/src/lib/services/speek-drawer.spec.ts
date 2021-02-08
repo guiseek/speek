@@ -6,7 +6,9 @@ describe('SpeekDrawer', () => {
   let service: SpeekDrawer
 
   beforeEach(() => {
-    TestBed.configureTestingModule({})
+    TestBed.configureTestingModule({
+      providers: [SpeekDrawer]
+    })
     service = TestBed.inject(SpeekDrawer)
   })
 

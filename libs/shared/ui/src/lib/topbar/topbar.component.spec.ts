@@ -1,3 +1,4 @@
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatListModule } from '@angular/material/list';
@@ -18,6 +19,7 @@ describe('TopbarComponent', () => {
         MatListModule,
         MatExpansionModule,
         MatProgressSpinnerModule,
+        BrowserAnimationsModule
       ],
     }).compileComponents()
   })

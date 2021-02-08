@@ -5,8 +5,11 @@
 export const environment = {
   production: false,
   signaling: {
-    url: 'ws://localhost:3000',
+    url: 'http://localhost:3000',
   },
+  connection: {
+    iceServers: [{ urls: 'stun:stun.stunprotocol.org:3478' }],
+  }
 }
 
 /*
