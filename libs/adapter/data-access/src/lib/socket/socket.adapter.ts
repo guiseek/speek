@@ -1,6 +1,7 @@
-import { io } from 'socket.io-client'
+import * as io from 'socket.io-client'
 import { share } from 'rxjs/operators'
 import { Observable } from 'rxjs'
+import { SpeekAction, SpeekPayload } from '@speek/core/entity'
 
 export interface SocketConfig {
   url: string
@@ -24,6 +25,18 @@ export class SocketAdapter {
     const options: any = config.options
     const ioFunc = (io as any).default ? (io as any).default : io
     this.ioSocket = ioFunc(url, options)
+  }
+
+  send(action: SpeekAction, data: SpeekPayload) {
+    this.emit(action, data)
+  }
+
+  onAction<T = SpeekPayload>(action: SpeekAction) {
+    return new Promise<T>((resolve) => this.once(action, resolve))
+  }
+
+  onActions<T = SpeekPayload>(action: SpeekAction) {
+    return this.fromEvent<T>(action)
   }
 
   of(namespace: string) {

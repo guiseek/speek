@@ -1,4 +1,4 @@
-import { io, Socket } from 'socket.io-client'
+import { Socket } from 'socket.io-client'
 
 export class Peer {
   completed: boolean
@@ -83,7 +83,7 @@ export class PeerStore {
 }
 
 export class RemotePeerStore extends PeerStore {
-  private socket: Socket
+  private socket: typeof Socket
 
   constructor() {
     super()

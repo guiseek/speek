@@ -1,4 +1,4 @@
-import { io, Socket } from 'socket.io-client'
+import { Socket } from 'socket.io-client'
 
 export class Todo {
   completed: boolean
@@ -81,7 +81,7 @@ export class TodoStore {
 }
 
 export class RemoteTodoStore extends TodoStore {
-  private socket: Socket
+  private socket: typeof Socket
 
   constructor() {
     super()
