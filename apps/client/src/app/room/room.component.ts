@@ -1,6 +1,11 @@
+import { UUID } from '@speek/util/format'
+import { PeerController } from '@speek/util/peer'
 import { PeerConnection } from '@speek/usecase/peer'
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
 import { BehaviorSubject } from 'rxjs'
+import { SocketAdapter } from '@speek/adapter/data-access'
+import { SpeekAction, SpeekPayload } from '@speek/core/entity'
+import { ActivatedRoute, Params, Router } from '@angular/router'
 
 @Component({
   selector: 'speek-room',
@@ -9,9 +14,10 @@ import { BehaviorSubject } from 'rxjs'
   providers: [PeerConnection],
 })
 export class RoomComponent implements OnInit {
-  connection = new PeerConnection()
+  // connection = new PeerConnection()
   peer: RTCPeerConnection
-  code = this.connection.code
+  code = UUID.short()
+  sender = UUID.long()
 
   localStream: MediaStream
   localVideoTrack: MediaStreamTrack
@@ -24,11 +30,52 @@ export class RoomComponent implements OnInit {
   private _call = new BehaviorSubject<boolean>(false)
   call$ = this._call.asObservable()
 
-  constructor() {
-    // this.connection.execute()
+  constructor(
+    readonly socket: SocketAdapter,
+    readonly controller: PeerController,
+    private _router: Router,
+    private _route: ActivatedRoute
+  ) {
+    this.initWithCode(this._route.snapshot.params)
   }
 
-  ngOnInit(): void {}
+  initWithCode({ code }: Params) {
+    this.code = code
+    if (!code) this._router.navigate(['/room', UUID.long()])
+    this.socket.onActions(SpeekAction.Offer).subscribe(this.handle.bind(this))
+    this.socket.emit(SpeekAction.CreateOrJoin, { code })
+  }
+
+  handle({ data, sender }: SpeekPayload) {
+    try {
+      console.log(sender !== this.sender, sender, this.sender)
+
+      if (sender !== this.sender) {
+        const { sdp, ice } = data
+        if (this.controller.peer !== null && ice !== undefined) {
+          this.controller.peer.addIceCandidate(new RTCIceCandidate(ice))
+        }
+        if (sdp)
+          switch (sdp.type) {
+            case SpeekAction.Offer:
+              return this.controller.createAnswer(sdp)
+            case SpeekAction.Answer:
+              return this.controller.setRemote(sdp)
+          }
+      }
+    } catch (error) {
+      throw new Error('handle-message')
+    }
+  }
+
+  ngOnInit(): void {
+    this.controller.createOffer().then((sdp) => {
+      this.socket.send(
+        SpeekAction.Offer,
+        new SpeekPayload(this.sender, this.code, { sdp })
+      )
+    })
+  }
 
   ngAfterViewInit(): void {
     this.localVideo = this.localVideoRef.nativeElement

@@ -516,6 +516,27 @@
           }
         }
       }
+    },
+    "util-peer": {
+      "root": "libs/util/peer",
+      "sourceRoot": "libs/util/peer/src",
+      "projectType": "library",
+      "architect": {
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/util/peer/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/util/peer"],
+          "options": {
+            "jestConfig": "libs/util/peer/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   }
 }

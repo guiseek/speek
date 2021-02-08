@@ -12,5 +12,6 @@ module.exports = {
     '<rootDir>/libs/feature/contact',
     '<rootDir>/libs/adapter/data-access',
     '<rootDir>/libs/util/testing',
+    '<rootDir>/libs/util/peer',
   ],
 }

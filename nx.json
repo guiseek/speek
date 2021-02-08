@@ -28,6 +28,7 @@
     "usecase-peer": { "tags": [] },
     "adapter-data-access": { "tags": [] },
     "feature-contact": { "tags": [] },
-    "util-testing": { "tags": [] }
+    "util-testing": { "tags": [] },
+    "util-peer": { "tags": [] }
   }
 }
